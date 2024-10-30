@@ -7,8 +7,6 @@ import WorkExperienceCard from '@/components/WorkExperienceCard/WorkExperienceCa
 import BlurFade from '@/components/ui/blur-fade';
 import TypingAnimation from "@/components/ui/typing-animation";
 import Skills from "@/content/skills.mdx"
-import { Image } from 'astro:assets';
-import Me from '@/assets/me.jpg'
 const projectFiles = await Astro.glob('../content/projects/*.mdx');
 const projectsToDisplay = projectFiles.slice(0, 4);
 
@@ -38,8 +36,8 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
         </div>
         <div class="relative flex-shrink-0 w-36 h-36 sm:w-44 sm:h-44 max-w-full max-h-full">
           <BlurFade client:load delay={0.4}>
-            <Image
-            src={Me}
+            <img
+            src="/assets/me.jpg"
             alt="Profile Picture"
             class="rounded-full border"
             />

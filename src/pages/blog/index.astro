@@ -24,7 +24,7 @@ const blogsToDisplay = blogFiles.slice(0, 4);
             {blogsToDisplay.map((blog) => (
               <div class="border-b pb-4 mb-4 space-y-1">
                 <h2 class="text-xl font-semibold flex items-center">
-                  <a href={`/blog/${blog.frontmatter.slug}`} data-astro-reload class="flex items-center">{blog.frontmatter.title} <ArrowUpRight class="ml-1"/> </a> 
+                  <a href={`/blog/${blog.frontmatter.slug}`} class="flex items-center">{blog.frontmatter.title} <ArrowUpRight class="ml-1"/> </a> 
                 </h2>
                 <p class="text-foreground/60">{blog.frontmatter.description}</p>
                 <p class="text-sm text-gray-400">{blog.frontmatter.author} • {blog.frontmatter.date} • {blog.frontmatter['estimate-reading-time']}</p>
