@@ -1,0 +1,74 @@
+---
+title: "Eleutheri Ads"
+date: July 2024 - Present
+description: 'Formerly known as "Linkguard". Eleutheri Ads is the simplest solution for developers looking to monetize their software, without the hassle.'
+slug: "Linkguard"
+skills: "javascript,luau,prisma,html5,node.js"
+img_logo:
+  src: "/assets/Linkguard.png"
+  alt: "Linkguard"
+github: "https://github.com/NotDSF/LinkGuard"
+website: "https://link.eleutheri.com/"
+---
+![Linkguard "Elutheri" Validation Diagram](/assets/showcase/LinkguardDiagram.png)
+
+## Eleutheri Ads
+- The simplest solution for developers looking to monetize their software, without the hassle.
+
+## Supported Publishers
+- [Linkvertise](https://linkvertise.com)
+- [LootLabs](https://lootlabs.gg)
+- [Boost.ink](https://boost.ink)
+
+## Getting Started
+- Head over to [link.eleutheri.com](https://link.eleutheri.com)
+- Navigate to **Create Link**
+
+## Validation Methods
+API Methods to verify users have completed advertisement links:
+- Discord ID
+- License Key
+
+### Discord ID
+ > | Intended Usage: Discord Bots, Web Applications, API's
+
+Validate completed links via Discord ID:
+```javascript
+ const packet = await fetch(`https://link.eleutheri.com/v1/project/:projectPrefix/discord/:discordID`);
+ if (packet.status !== 200) {
+     return console.log("Invalid License");
+ }
+
+ const body = await packet.json();
+ if (!body.valid) {
+     return console.log("Invalid License");
+ }
+
+ console.log("Valid License:", body);
+```
+
+### License Key
+ > | Intended Usage: Lua(u) Scripts, Python Scripts, Desktop Applications
+```py
+ import requests
+
+ project_prefix = ""
+ license_key = input("License Key: ")
+
+ response = requests.get("https://link.eleutheri.com/v1/project/{}/licenses/{}".format(project_prefix, license_key))
+ if response.status_code != 200:
+    print("Invalid License")
+    exit(1)
+
+ body = response.json()
+ if not body["valid"]:
+    print("Invalid License")
+    exit(1)
+
+ print("Valid!", body)
+
+```
+
+## Contributing
+
+We're open to contributions of all kinds—bug fixes, new features, or even documentation improvements! Check out our guidelines on how to get started.

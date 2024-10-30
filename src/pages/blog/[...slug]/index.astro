@@ -1,0 +1,49 @@
+---
+import "@/styles/globals.css"
+import "@/styles/markdown.css"
+import CommonHeader from '@/components/CommonHeader.astro'
+import BlurFade from "@/components/BlurFade/BlurFade.astro";
+import MenuBar from "@/components/MenuBar/MenuBar.astro";
+import { Separator } from "@/components/ui/separator";
+const blogFiles = await Astro.glob('../../../content/blogs/*.mdx');
+const { slug } = Astro.params;
+
+if (!slug) {
+    return Astro.redirect("/NotFound")
+}
+
+const blog = blogFiles.find((p) => p.frontmatter.slug.toLowerCase() === slug.toLowerCase());
+
+if (!blog) {
+    return Astro.redirect("/NotFound")
+}
+---
+
+<html lang="en">
+<head>
+  <CommonHeader />
+</head>
+<body class="min-h-screen mb-20">
+  <div class="flex flex-col pt-20">
+    <BlurFade delay={0.6}>
+    <div class="mx-auto w-full max-w-3xl space-y-16">
+        <div class="flex-col pt-10 p-4">
+          <div class="text-4xl sm:text-4xl font-bold w-fit">
+            ▲ {blog.frontmatter.title}
+          </div>
+          <div class="mb-3 pt-3">
+            <p>{blog.frontmatter.description}</p>
+            <p class="text-foreground/50 pt-3">{blog.frontmatter.author} • {blog.frontmatter.date} • {blog.frontmatter['estimate-reading-time']}</p>
+          </div>  
+          <Separator className="w-full mt-5" />
+          <div class="mt-3">
+            <blog.Content />
+            </div>   
+          </div>
+        </div>
+      </BlurFade>
+    </div>
+  </div>
+  <MenuBar/>
+</body>
+</html>

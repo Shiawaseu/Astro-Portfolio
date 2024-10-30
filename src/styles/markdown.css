@@ -1,0 +1,90 @@
+/*
+ Markdown style workaround (for some reason, default styles are gone), aswell as extra styling for code blocks.
+
+ Adjust this to your needs.
+*/
+
+ul {
+    list-style-type: circle;
+    margin: 1rem;
+    padding: 0.5rem;
+}
+
+
+ol {
+    list-style-type: decimal;
+    margin: 1rem;
+    padding: 0.5rem;
+}
+
+h1 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+h3 {
+    margin-top: 10px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+p img {
+    margin-bottom: 20px;
+}
+
+ a {
+    text-decoration: underline;
+}
+
+blockquote p {
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: coral;
+}
+
+.astro-code {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #555 #222;
+}
+
+/* Themes for code block */
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+
+code {
+    counter-reset: step;
+    counter-increment: step 0;
+  }
+  
+  code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 1rem;
+    margin-left: 0.25rem;
+    margin-right: 1.5rem;
+    display: inline-block;
+    text-align: center;
+    color: rgba(115,138,148,.4)
+  }

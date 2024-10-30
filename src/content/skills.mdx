@@ -1,0 +1,44 @@
+import { Badge } from "./../components/ui/badge.tsx";
+import { FaReact, FaNodeJs, FaHtml5 } from "react-icons/fa";
+import { SiCsharp, SiJavascript, SiTypescript, SiNpm, SiPnpm, SiPython, SiAstro, SiTailwindcss, SiSupabase, SiVisualstudio, SiRobloxstudio, SiNextdotjs, SiPrisma } from "react-icons/si";
+import { DiRedis } from "react-icons/di"
+import { VscVscode } from "react-icons/vsc";
+
+export const skills = [
+  { name: "C#", icon: <SiCsharp color="#4400f0" /> },
+  { name: "TypeScript", icon: <SiTypescript color="#007ACC"/> },
+  { name: "JavaScript", icon: <SiJavascript color="#F7DF1E" /> },
+  { name: "Node.js", icon: <FaNodeJs color="#339933" /> },
+  { name: "React", icon: <FaReact color="#61DAFB" /> },
+  { name: "Luau", icon: <SiRobloxstudio color="#00BFFF" /> },
+  { name: "Python", icon: <SiPython color="#3776AB" /> },
+  { name: "HTML5", icon: <FaHtml5 color="#E34F26" /> },
+  { name: "NPM", icon: <SiNpm color="#CB3837" /> },
+  { name: "PNPM", icon: <SiPnpm color="#3EBA8E" /> },
+  { name: "Astro", icon: <SiAstro color="#FF5D02" /> },
+  { name: "Next.js", icon: <SiNextdotjs color="#000000" /> },
+  { name: "Tailwind CSS", icon: <SiTailwindcss color="#06B6D4" /> },
+  { name: "Supabase", icon: <SiSupabase color="#3ECF8E" /> },
+  { name: "Prisma", icon: <SiPrisma  color="#8da9d9" /> },
+  { name: "Redis", icon: <DiRedis color="#FC0317" /> },
+  { name: "VS Code", icon: <VscVscode color="#007ACC" /> },
+  { name: "Visual Studio", icon: <SiVisualstudio color="#5C2D91" /> },
+];
+
+export default function Skills({ names, showIcons = true }) {
+  if (!names) return;
+  const filteredSkills = names === "all"
+    ? skills
+    : skills.filter(skill => names.split(',').map(name => name.trim()).includes(skill.name.toLowerCase()));
+
+  return (
+    <div className="space-x-1">
+      {filteredSkills.map((skill, index) => (
+        <Badge key={index} variant="default">
+          {showIcons && skill.icon}
+          <p className={`font-bold ${showIcons ? 'ml-1' : ''}`}>{skill.name}</p>
+        </Badge>
+      ))}
+    </div>
+  );
+}

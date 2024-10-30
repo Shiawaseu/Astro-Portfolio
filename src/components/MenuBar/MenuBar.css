@@ -1,0 +1,63 @@
+.resizeable-container {
+  position: relative; 
+  transform: scale(1);
+  z-index: 9999;
+  transition: transform 0.3s ease;
+}
+
+.icon-wrapper {
+  position: relative; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.icon-circle {
+  content: '';
+  position: absolute;
+  width: 35px; 
+  height: 35px; 
+  background-color: rgba(88, 88, 88, 0.3); 
+  border-radius: 50%; 
+  transform: scale(0); 
+  transition: transform 0.3s ease; 
+  z-index: 0; 
+}
+
+.icon {
+  position: relative; 
+  transition: transform 0.3s ease; 
+  z-index: 1; 
+}
+
+.icon-wrapper:hover .icon-circle {
+  transform: scale(1); 
+}
+
+.music-box:hover {
+  transition: none;
+}
+
+.icon:hover {
+  transform: scale(1.1); 
+}
+
+.music-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease; 
+}
+
+.music-box.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#track-image {
+  max-width: 100%;
+  display: block;
+}

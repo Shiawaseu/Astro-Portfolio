@@ -1,0 +1,21 @@
+---
+import "./WorkExperienceCard.css";
+const { title, description, date, imageSrc, imageAlt, role } = Astro.props;
+---
+
+<div class="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 flex justify-between items-center transition-border hover:border-foreground/80 cursor-pointer">
+  <div class="flex-1">
+    <h2 class="text-xl font-semibold mb-2">{title}</h2>
+    <p class="mb-3">{description}</p>
+    <div>
+      <p class="text-foreground/50">{role + ' | '} {date}</p>
+    </div>
+  </div>
+  <div class="ml-4">
+    <img 
+      src={imageSrc} 
+      alt={imageAlt} 
+      class="w-32 h-32 object-cover rounded-lg" 
+    />
+  </div>
+</div>

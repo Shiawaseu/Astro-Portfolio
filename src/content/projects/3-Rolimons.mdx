@@ -1,0 +1,34 @@
+---
+title: "Rolimons"
+date: May 2023 - May 2024
+description: 'An unoffical High-level API Wrapper for Rolimons, Providing statistics, tools, and analytics for the Roblox trading, gaming, and related communities.'
+slug: "Rolimons"
+skills: "javascript,node.js"
+img_logo:
+  src: "/assets/Rolimons.png"
+  alt: "Rolimons"
+github: "https://github.com/Shiawaseu/rolimons"
+website: "https://shiawase.gitbook.io/rolimons-api-wrapper-docs"
+---
+
+## Rolimons API Wrapper
+A high-level wrapper providing streamlined access to Rolimons data, enabling developers to build applications that integrate detailed item statistics, track market activity, and retrieve information on players, groups, and games.
+
+### Covered Endpoints
+- **Items & Caching**: Quickly access item data and search by name or acronym. With built-in caching, frequent data requests are efficient and fast.
+- **Market Activity**: Retrieve trade ads, ensuring users are always informed about recent market trends.
+- **Groups and Games**: Discover and retrieve details about active groups and games on the platform.
+- **Players & Leaderboard**: Access player data and keep track of leaderboards with real-time updates.
+
+### Example Usage
+Using the API wrapper is simple. Here's an example to search for an item by name:
+```javascript
+
+ const rolimons = require("rolimons");
+
+ rolimons.items.searchItem("name", "SSHF").then((item) => {
+     if (!item) return;
+     console.log(item);
+ });
+
+```
