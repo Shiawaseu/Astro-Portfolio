@@ -46,12 +46,12 @@ async function fetchSpotifyData(spotifyUrl) {
 
 
 export async function GET() {
+    // Todo read env variable if feat is enabled or not (t'was there, just didn't work in prod as usual)
     const FetchResponse = await getCurrentlyPlayingTrack();
     if (FetchResponse && FetchResponse.error) {
       if (FetchResponse.error == "No track currently playing") {
         return new Response(null, {
-          status: 204,
-          headers: { 'Content-Type': 'application/json', 'errType': FetchResponse.error },
+          status: 204
         });
       }
       return new Response(JSON.stringify({ message: FetchResponse.error }), {
