@@ -30,6 +30,9 @@ All commands are run from the root of the project, from a terminal:
 
 ## Spotify Setup (One-time)
 
+<details>
+<summary>Click here to expand Spotify Setup Steps</summary>
+
 ### For every step here, insert all the information to your environment variables (check [here](/.env.example))
 
 1 - Collect your Spotify Data
@@ -38,16 +41,18 @@ All commands are run from the root of the project, from a terminal:
 - Collect the **Client ID** & **Client Secret** ![](/assets/spotify3.png)
 
 2 - Collect your Redis data (used for storing your access tokens along with refresh tokens)
-- Create a new cache like so:![](/assets/redis1.png)
+- Create a new cache like so: ![](/assets/redis1.png)
   - Select `cache` & the rest is up to you
 
-- Get your `host` / `port` / `password` from the dashboard:![](/assets/redis2.png) ![](/assets/redis3.png)
+- Get your `host` / `port` / `password` from the dashboard: ![](/assets/redis2.png) ![](/assets/redis3.png)
 
-3 - Authenticate your spotify account
-> At this point, you need your server running, wether it is locally or in production, make sure your redirect URI is matching in both the Spotify Dashboard & your environment variables.
+3 - Authenticate your Spotify account
+> At this point, you need your server running, whether it is locally or in production, make sure your redirect URI is matching in both the Spotify Dashboard & your environment variables.
 
 - Navigate to `/api/spotify`
-  - You will be prompted to login to Spotify, and then asked for permission to authorize the app you've created, accept.
+  - You will be prompted to log in to Spotify and then asked for permission to authorize the app you've created, accept.
 
-- Once you have been redirected back, edit your url as follows: ![](/assets/auth1.png) ![](/assets/auth2.png)
+- Once you have been redirected back, edit your URL as follows: ![](/assets/auth1.png) ![](/assets/auth2.png)
   - Once you have done that, you should be ready to go.
+
+</details>
