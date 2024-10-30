@@ -51,7 +51,7 @@ export async function GET() {
       if (FetchResponse.error == "No track currently playing") {
         return new Response(null, {
           status: 204,
-          headers: { 'Content-Type': 'application/json', 'errType': "NC" },
+          headers: { 'Content-Type': 'application/json', 'errType': FetchResponse.error },
         });
       }
       return new Response(JSON.stringify({ message: FetchResponse.error }), {
