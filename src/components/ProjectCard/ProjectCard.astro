@@ -4,7 +4,7 @@ const { title, description, date, imageSrc, imageAlt, slug } = Astro.props;
 import { Separator } from "@/components/ui/separator";
 ---
 
-<a href={`/projects/${slug}`} data-astro-reload> <!-- Unfortunatley, for some reason BlurFade does not want to work when you use the transition API   -->
+<a href={`/projects/${slug}`}>
  <div class="h-80 w-full border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col transition-border hover:border-foreground/80 cursor-pointer">
   <div class="flex-grow flex flex-col items-center justify-center"> 
     <img 
