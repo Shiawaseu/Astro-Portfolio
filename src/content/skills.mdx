@@ -25,7 +25,7 @@ export const skills = [
   { name: "Visual Studio", icon: <SiVisualstudio color="#5C2D91" /> },
 ];
 
-export default function Skills({ names, showIcons = true }) {
+export default function Skills({ names, showIcons = false }) { // Disabled for now
   if (!names) return;
   const filteredSkills = names === "all"
     ? skills
