@@ -50,7 +50,7 @@ export async function GET() {
   if (!FEATURE_ENABLED) {
      return new Response(null, {
        status: 204,
-       headers: { 'Content-Type': 'application/json' },
+       headers: { 'Content-Type': 'application/json', 'errType': "DF" },
      });
   }
     const FetchResponse = await getCurrentlyPlayingTrack();
@@ -58,7 +58,7 @@ export async function GET() {
       if (FetchResponse.error == "No track currently playing") {
         return new Response(null, {
           status: 204,
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'errType': "NC" },
         });
       }
       return new Response(JSON.stringify({ message: FetchResponse.error }), {
