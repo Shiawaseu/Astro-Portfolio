@@ -46,13 +46,6 @@ async function fetchSpotifyData(spotifyUrl) {
 
 
 export async function GET() {
-  const FEATURE_ENABLED = import.meta.env.SPOTIFY_ENABLED === "true";
-  if (!FEATURE_ENABLED) {
-     return new Response(null, {
-       status: 204,
-       headers: { 'Content-Type': 'application/json', 'errType': "DF" },
-     });
-  }
     const FetchResponse = await getCurrentlyPlayingTrack();
     if (FetchResponse && FetchResponse.error) {
       if (FetchResponse.error == "No track currently playing") {
