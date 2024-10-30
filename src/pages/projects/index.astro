@@ -1,0 +1,41 @@
+---
+import '@/styles/globals.css';
+import MenuBar from '@/components/MenuBar/MenuBar.astro';
+import ProjectCard from '@/components/ProjectCard/ProjectCard.astro';
+import BlurFade from '@/components/ui/blur-fade';
+import CommonHeader from '@/components/CommonHeader.astro';
+const projectFiles = await Astro.glob('../../content/projects/*.mdx');
+const projectsToDisplay = projectFiles.slice(0, 4);
+---
+
+<html lang="en">
+<head>
+  <CommonHeader />
+</head>
+<body class="min-h-screen">
+  <div class="flex flex-col pt-20">
+    <div class="mx-auto w-full max-w-3xl space-y-16">
+      <BlurFade client:load delay={0.6}>
+        <div class="flex-col pt-10 p-4 ">
+          <div class="text-2xl sm:text-3xl font-bold w-fit">
+            ▲ Projects ({projectFiles.length})
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3">
+            {projectsToDisplay.map((project) => (
+              <ProjectCard 
+                title={project.frontmatter.title} 
+                description={project.frontmatter.description} 
+                date={project.frontmatter.date} 
+                imageSrc={project.frontmatter.img_logo.src}
+                imageAlt={project.frontmatter.img_logo.alt}
+                slug={project.frontmatter.slug}
+              />
+            ))}
+          </div>
+        </div>
+      </BlurFade>
+    </div>
+  </div>
+  <MenuBar/>
+</body>
+</html>

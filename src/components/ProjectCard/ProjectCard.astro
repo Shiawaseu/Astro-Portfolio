@@ -1,0 +1,23 @@
+---
+import "./ProjectCard.css";
+const { title, description, date, imageSrc, imageAlt, slug } = Astro.props;
+import { Separator } from "@/components/ui/separator";
+---
+
+<a href={`/projects/${slug}`} data-astro-reload> <!-- Unfortunatley, for some reason BlurFade does not want to work when you use the transition API   -->
+ <div class="h-80 w-full border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col transition-border hover:border-foreground/80 cursor-pointer">
+  <div class="flex-grow flex flex-col items-center justify-center"> 
+    <img 
+      src={imageSrc} 
+      alt={imageAlt} 
+      class="icon-image mb-2 h-24 w-24 object-contain rounded-md" 
+      width="100"
+      height="100"
+    />
+    <h2 class="text-lg font-semibold mb-1 text-center">{title}</h2>
+    <Separator className="my-2 w-full border-foreground/30" />
+    <p class="flex-grow text-sm text-center mb-1 flex items-center justify-center">{description}</p>
+  </div>
+  <p class="text-foreground/50 text-xs text-center mt-2">{date}</p> 
+ </div>
+</a>

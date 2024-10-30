@@ -1,0 +1,177 @@
+---
+import { Home, BookText, Github, Mail, MoonStar, Music, Wrench, Sun, Coffee } from 'lucide-astro';
+import "./MenuBar.css"
+import "./Balloon.css"
+import { Separator } from "@/components/ui/separator";
+import BlurFade from '@/components/ui/blur-fade.tsx';
+import { Image } from 'astro:assets';
+
+---
+
+<div class="fixed left-0 right-0 bottom-3 flex justify-center" transition:persist>
+  <BlurFade client:load> 
+  <div
+    class="resizeable-container relative flex bg-background shadow-lg border max-w-1/6 h-14 rounded-full justify-start items-center pl-5 pr-5 space-x-3 transition-transform duration-300"
+  >
+  <div aria-label="Home" data-balloon-pos="up">
+    <a class="icon-wrapper" href="/">
+      <div class="icon-circle"></div>
+      <Home class="w-5 h-5 icon" />
+    </a>
+  </div>
+  <div aria-label="Projects" data-balloon-pos="up">
+    <a class="icon-wrapper pl-1" href="/projects">
+      <div class="icon-circle"></div>
+      <Wrench class="w-5 h-5 icon" />
+    </a>
+  </div>
+  <div aria-label="Blog" data-balloon-pos="up">
+    <a class="icon-wrapper pl-1" href="/blog">
+      <div class="icon-circle"></div>
+      <BookText class="w-5 h-5 icon" />
+    </a>
+  </div>
+    <Separator orientation="vertical" className="ml-6 h-6 bg-black/50 dark:bg-white/20" />
+    <div aria-label="Github" data-balloon-pos="up">
+    <a class="icon-wrapper" href="https://github.com/shiawaseu">
+      <div class="icon-circle"></div>
+      <Github class="w-5 h-5 icon" />
+    </a>
+    </div>
+    <div aria-label="Buy me a coffee" data-balloon-pos="up">
+      <a class="icon-wrapper pl-1" href="https://buymeacoffee.com/shiawase">
+        <div class="icon-circle"></div>
+        <Coffee class="w-5 h-5 icon" />
+      </a>
+      </div>
+    <div aria-label="Email" data-balloon-pos="up">
+    <a class="icon-wrapper pl-1" href="mailto:shiawaseu@proton.me">
+      <div class="icon-circle"></div>
+      <Mail class="w-5 h-5 icon" />
+    </a>
+    </div>
+    <Separator orientation="vertical" className="ml-6 h-6 bg-black/50 dark:bg-white/20" />
+    <div class="relative" id="music-box">
+      <div class="fixed bg-background p-4 rounded-lg w-80 h-64 border music-box" style="bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);">
+        <div class="flex items-center space-x-2 mb-4">
+          <Music class="w-5 h-5" />
+          <p class="font-semibold">Currently Listening To:</p>
+        </div>
+        <div class="flex justify-center"> 
+          <Image src="//:0" width={4} height={4} alt="Song Cover (Local File?)" class="object-cover rounded-md w-2/5 opacity-0" id="track-image" /> 
+        </div>
+        <div class="mt-4 flex flex-col items-center">
+          <div id="track-name" class="font-bold hidden"></div>
+          <div id="artist-name" class="mt-1 text-foreground/80 hidden"></div>
+          <div id="no-track-message" class="mt-4 flex justify-center items-center text-center block">No track currently playing!</div>
+        </div>
+      </div>      
+      <div aria-label="Current Listening" data-balloon-pos="up">
+        <button class="icon-wrapper" id="listening">
+          <div class="icon-circle"></div>
+          <Music class="w-5 h-5 icon" />
+        </button>
+      </div>
+    </div>
+    <div aria-label="Theme" data-balloon-pos="up">
+    <button class="icon-wrapper pl-1" id="theme-selector">
+        <div class="icon-circle"></div>
+        <Sun class="stroke-white w-5 h-5 icon dark:block hidden" />
+        <MoonStar class="stroke-black w-5 h-5 icon dark:hidden" />               
+    </button>
+    </div>
+  </div>
+  </BlurFade>
+</div>
+
+<script>
+  // This is all the logic behind the menu bar | including themes
+  const musicButton = document.querySelector("#listening") as HTMLElement;
+  const trackNameElement = document.querySelector("#track-name") as HTMLElement;
+  const artistNameElement = document.querySelector("#artist-name") as HTMLElement;
+  const trackImageElement = document.querySelector("#track-image") as HTMLImageElement;
+  const noTrackMessage = document.querySelector("#no-track-message") as HTMLElement;
+
+  const fetchTrack = async () => {
+      try {
+          const response = await fetch('/api/GetPlayingTrack');
+
+          if (response.status == 200) {
+              const data = await response.json();
+              
+              trackImageElement.src = data.trackCover ? data.trackCover : "//:0";
+
+              trackImageElement.onload = () => {
+                  trackImageElement.classList.remove("opacity-0");
+              };
+
+              trackNameElement.textContent = data.trackName;
+              artistNameElement.textContent = (data.artistName == "" ? "Local File" : data.artistName);
+
+              artistNameElement.classList.remove("hidden");
+              trackNameElement.classList.remove("hidden");
+              noTrackMessage.classList.add("hidden");
+          } else {
+              trackImageElement.classList.add("opacity-0");
+              artistNameElement.classList.add("hidden");
+              trackNameElement.classList.add("hidden");
+              noTrackMessage.classList.remove("hidden");
+          }
+      } catch (error) {
+          console.error('Error fetching track:', error);
+      }
+  };
+
+
+  // Might remove this
+  musicButton?.addEventListener("click", () => {
+      fetchTrack();
+  });
+
+  setInterval(fetchTrack, 6000);
+
+  const musicBox = document.querySelector("#music-box .music-box") as HTMLElement;
+
+  musicButton?.addEventListener("click", () => {
+      if (musicBox?.classList.contains("visible")) {
+          musicBox.classList.remove("visible");
+      } else {
+          musicBox?.classList.add("visible");
+      }
+  });
+
+  const themeSelector = document.querySelector("#theme-selector") as HTMLElement;
+
+  function setTheme(theme: string) {
+      const htmlElement = document.documentElement;
+
+      if (theme === "dark") {
+          htmlElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+      } else {
+          htmlElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+      }
+  }
+
+  function loadThemePreference() {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+          setTheme(savedTheme);
+      } else {
+          setTheme("light");
+      }
+  }
+
+  themeSelector?.addEventListener("click", () => {
+      const currentTheme = localStorage.getItem("theme") === "dark" ? "light" : "dark";
+      setTheme(currentTheme);
+  });
+
+  loadThemePreference();
+
+  // Astro transitions
+  document.addEventListener("astro:page-load", () => {
+      loadThemePreference();
+  });
+</script>
