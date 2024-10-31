@@ -29,5 +29,8 @@ export default defineConfig({
     })
   ],
 
-  adapter: vercel() // Change this if you're planning to deploy somewhere else.
+  // Change this if you're planning to deploy somewhere else.
+  adapter: vercel({
+    webAnalytics: { enabled: true }
+  })
 });
