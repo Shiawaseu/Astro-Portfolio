@@ -12,6 +12,8 @@ A sleek, professional and responsive open-source portfolio built with Astro with
 | **Spotify Integration 🎧**      | Displays the song currently playing on Spotify, giving a personal touch to the portfolio.        |                     |
 | **Open-Source 🖥️**       | Fully open-source, allowing others to fork, contribute, and personalize the portfolio.            |
 
+# Showcase
+https://github.com/user-attachments/assets/a386cd13-83f5-44c6-910e-c09a470dfafe
 
 ## Astro Commands
 
