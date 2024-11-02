@@ -23,12 +23,10 @@ A high-level wrapper providing streamlined access to Rolimons data, enabling dev
 ### Example Usage
 Using the API wrapper is simple. Here's an example to search for an item by name:
 ```javascript
-
  const rolimons = require("rolimons");
 
  rolimons.items.searchItem("name", "SSHF").then((item) => {
      if (!item) return;
      console.log(item);
  });
-
 ```
