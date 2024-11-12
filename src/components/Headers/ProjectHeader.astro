@@ -1,0 +1,28 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+const {title, description, icon} = Astro.props;
+---
+<head>
+    <ViewTransitions />
+    <title>{title}</title>
+
+    <meta name="theme-color" content="#FFFFFF">
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:image" content={icon}/>
+    <meta property="og:description" content={description}/>
+    <meta property="og:type" content="website" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:image" content={icon} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content="Shiawase" />
+</head>

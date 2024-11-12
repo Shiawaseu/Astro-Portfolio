@@ -3,15 +3,13 @@ import '@/styles/globals.css';
 import MenuBar from '@/components/MenuBar/MenuBar.astro';
 import ProjectCard from '@/components/ProjectCard/ProjectCard.astro';
 import BlurFade from '@/components/ui/blur-fade';
-import CommonHeader from '@/components/CommonHeader.astro';
+import CommonHeader from '@/components/Headers/CommonHeader.astro';
 const projectFiles = await Astro.glob('../../content/projects/*.mdx');
 const projectsToDisplay = projectFiles.slice(0, 4);
 ---
 
 <html lang="en">
-<head>
   <CommonHeader />
-</head>
 <body class="min-h-screen">
   <div class="flex flex-col pt-20">
     <div class="mx-auto w-full max-w-3xl space-y-16">

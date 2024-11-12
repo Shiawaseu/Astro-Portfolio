@@ -1,7 +1,8 @@
 ---
 import "@/styles/globals.css"
 import "@/styles/markdown.css"
-import CommonHeader from '@/components/CommonHeader.astro'
+import { Image } from "astro:assets";
+import BlogHeader from "@/components/Headers/BlogHeader.astro";
 import BlurFade from "@/components/ui/blur-fade";
 import MenuBar from "@/components/MenuBar/MenuBar.astro";
 import { Separator } from "@/components/ui/separator";
@@ -20,9 +21,7 @@ if (!blog) {
 ---
 
 <html lang="en">
-<head>
-  <CommonHeader />
-</head>
+<BlogHeader title={blog.frontmatter.title} description={blog.frontmatter.description} thumbnail={blog.frontmatter.img.src} />
 <body class="min-h-screen mb-20">
   <div class="flex flex-col pt-20">
     <BlurFade delay={0.6} client:load>
@@ -33,6 +32,7 @@ if (!blog) {
           </div>
           <div class="mb-3 pt-3">
             <p>{blog.frontmatter.description}</p>
+            <Image alt={blog.frontmatter.img.alt} src={blog.frontmatter.img.src} width={736} height={100} />
             <p class="text-foreground/50 pt-3">{blog.frontmatter.author} • {blog.frontmatter.date} • {blog.frontmatter['estimate-reading-time']}</p>
           </div>  
           <Separator className="w-full mt-5" />
