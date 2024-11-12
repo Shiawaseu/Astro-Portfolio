@@ -1,3 +1,5 @@
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FShiawaseu%2FAstro-Portfolio&env=SPOTIFY_ENABLED,REDIS_PORT,REDIS_HOST,REDIS_PASSWORD,AUTHENTICATION_PASSWORD,SPOTIFY_CLIENT_ID,SPOTIFY_CLIENT_SECRET,SPOTIFY_REDIRECT_URI&envDescription=Environment%20variables%20for%20setting%20up%20the%20Spotify%20integration%20%7C%20If%20you%20won't%20use%20the%20feature%2C%20set%20SPOTIFY_ENABLED%20to%20%22false%22%20and%20discard%20the%20rest%20of%20the%20variables&envLink=https%3A%2F%2Fgithub.com%2FShiawaseu%2FAstro-Portfolio%2Fblob%2Fmain%2F.env.example&project-name=portfolio&repository-name=portfolio&demo-title=Portfolio%20Showcase&demo-description=A%20sleek%2C%20professional%20and%20responsive%20open-source%20portfolio%20built%20with%20Astro%20with%20customizable%20features%20and%20content.&demo-url=https%3A%2F%2Fshiawase.dev&demo-image=https%3A%2F%2Fgithub.com%2Fuser-attachments%2Fassets%2Fa386cd13-83f5-44c6-910e-c09a470dfafe)
+
 # Astro Portfolio
 
 A sleek, professional and responsive open-source portfolio built with Astro with customizable features and content.
