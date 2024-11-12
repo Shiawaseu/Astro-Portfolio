@@ -3,15 +3,13 @@ import '@/styles/globals.css';
 import MenuBar from '@/components/MenuBar/MenuBar.astro';
 import BlurFade from '@/components/ui/blur-fade';
 import { ArrowUpRight } from 'lucide-astro';
-import CommonHeader from '@/components/CommonHeader.astro';
+import CommonHeader from '@/components/Headers/CommonHeader.astro';
 const blogFiles = await Astro.glob('../../content/blogs/*.mdx');
 const blogsToDisplay = blogFiles.slice(0, 4);
 ---
 
 <html lang="en">
-<head>
   <CommonHeader />
-</head>
 <body class="min-h-screen">
   <div class="flex flex-col pt-20">
     <div class="mx-auto w-full max-w-3xl space-y-16">
