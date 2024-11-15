@@ -62,7 +62,6 @@ export const getCurrentlyPlayingTrack = async () => {
 
   const accessToken = await redis.get('access_token');
   const refreshToken = await redis.get('refresh_token');
-
   // Check
   if (!accessToken) {
     await refreshAccessToken(refreshToken);
