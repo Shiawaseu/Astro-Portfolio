@@ -35,7 +35,7 @@ export async function GET() {
     const trackName = trackItem.name;
 
     const trackURL = trackItem.external_urls.spotify || null;
-    const artistURL = artist.external_urls.href || null;
+    const artistURL = artist.external_urls.spotify || null;
     const trackCover = (trackItem.album.images[0] ? trackItem.album.images[0].url : null);
     
     // const startedTime = new Date(trackData.timestamp).toLocaleString();
