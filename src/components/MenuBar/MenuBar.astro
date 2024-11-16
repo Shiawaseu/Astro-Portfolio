@@ -61,8 +61,12 @@ import { Image } from 'astro:assets';
           <Image src="//:0" width={4} height={4} alt="Song Cover (Local File?)" class="object-cover rounded-md w-2/5 opacity-0" id="track-image" /> 
         </div>
         <div class="mt-4 flex flex-col items-center">
-          <div id="track-name" class="font-bold hidden"></div>
-          <div id="artist-name" class="mt-1 text-foreground/80 hidden"></div>
+          <a id="track-name" class="font-bold hidden" href="#">
+
+          </a>
+          <a id="artist-name" class="mt-1 text-foreground/80 hidden" href="#">
+
+          </a>
           <div id="no-track-message" class="mt-4 flex justify-center items-center text-center block">No track currently playing!</div>
         </div>
       </div>      
@@ -86,9 +90,21 @@ import { Image } from 'astro:assets';
 
 <script>
   // This is all the logic behind the menu bar | including themes
+
+  interface SpotifyTrackData {
+  refreshedToken: boolean;
+  artistName: string;
+  artistURL: string | null;
+  trackName: string;
+  trackURL: string | null;
+  trackCover: string | null;
+  songProgress: number;
+}
+
+
   const musicButton = document.querySelector("#listening") as HTMLElement;
-  const trackNameElement = document.querySelector("#track-name") as HTMLElement;
-  const artistNameElement = document.querySelector("#artist-name") as HTMLElement;
+  const trackNameElement = document.querySelector("#track-name") as HTMLAnchorElement;
+  const artistNameElement = document.querySelector("#artist-name") as HTMLAnchorElement;
   const trackImageElement = document.querySelector("#track-image") as HTMLImageElement;
   const noTrackMessage = document.querySelector("#no-track-message") as HTMLElement;
 
@@ -97,7 +113,7 @@ import { Image } from 'astro:assets';
           const response = await fetch('/api/GetPlayingTrack');
 
           if (response.status == 200) {
-              const data = await response.json();
+              const data: SpotifyTrackData = await response.json();
               
               trackImageElement.src = data.trackCover ? data.trackCover : "//:0";
 
@@ -106,7 +122,9 @@ import { Image } from 'astro:assets';
               };
 
               trackNameElement.textContent = data.trackName;
-              artistNameElement.textContent = (data.artistName == "" ? "Local File" : data.artistName);
+              trackNameElement.href = (data.trackURL ? data.trackURL : "#")
+              artistNameElement.textContent = (data.artistName == "" ? "Unknown Artist" : data.artistName);
+              artistNameElement.href = (data.artistURL ? data.artistURL : "#")
 
               artistNameElement.classList.remove("hidden");
               trackNameElement.classList.remove("hidden");
@@ -122,13 +140,16 @@ import { Image } from 'astro:assets';
       }
   };
 
-
-  // Might remove this
-  musicButton?.addEventListener("click", () => {
-      fetchTrack();
+  trackNameElement.addEventListener('click', (e: MouseEvent) => {
+    if (trackNameElement.getAttribute('href') === "#") {e.preventDefault()};
   });
 
-  setInterval(fetchTrack, 6000);
+  artistNameElement.addEventListener('click', (e: MouseEvent) => {
+    if (artistNameElement.getAttribute('href') === "#") {e.preventDefault()};
+  });
+
+  // Fetch playing track every 5 seconds
+  setInterval(fetchTrack, 5000);
 
   const musicBox = document.querySelector("#music-box .music-box") as HTMLElement;
 
