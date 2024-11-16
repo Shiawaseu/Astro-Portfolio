@@ -58,6 +58,7 @@ All commands are run from the root of the project, from a terminal:
   - You will be prompted to log in to Spotify and then asked for permission to authorize the app you've created, accept.
 
 - Once you have been redirected back, edit your URL as follows: ![](/assets/auth1.png) ![](/assets/auth2.png)
+  - This extra step only exists to prevent unauthorized spotify linking to your portfolio
   - Once you have done that, you should be ready to go.
 
 </details>
