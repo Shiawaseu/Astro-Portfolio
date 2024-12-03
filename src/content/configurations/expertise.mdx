@@ -1,0 +1,68 @@
+import { Badge } from "../../components/ui/badge.tsx"; 
+
+export const Skills = [
+  "C#",
+  "TypeScript",
+  "JavaScript",
+  "Luau",
+  "Python",
+  "HTML5",
+  "Tailwind CSS",
+];
+
+export const Tools = [ 
+  "Node.js",
+  "React",
+  "NPM",
+  "PNPM",
+  "Astro",
+  "Next.js",
+  "Supabase",
+  "Prisma",
+  "Redis",
+  "VS Code",
+  "Visual Studio",
+];
+
+
+export default function Expertise({ names = "all", filter = "both" }) {
+  
+  // Convert the names for filtering provided to lowercase in an array. if its "all" then no need for filtering so empty array
+  const normalizedNames = names === "all" ? [] : names.split(',').map(name => name.trim().toLowerCase());
+  
+  let combinedList = [];
+
+  switch (filter) {
+    // normalizedNames.length == 0 --> No filter
+    case "skills":
+      combinedList = normalizedNames.length 
+        ? Skills.filter(skill => normalizedNames.includes(skill.toLowerCase())) 
+        : Skills;
+      break;
+    case "tools":
+      combinedList = normalizedNames.length 
+        ? Tools.filter(tool => normalizedNames.includes(tool.toLowerCase())) 
+        : Tools;
+      break;
+    case "both":
+    default:
+      combinedList = normalizedNames.length 
+        ? [...Skills, ...Tools].filter(item => normalizedNames.includes(item.toLowerCase())) 
+        : [...Skills, ...Tools];
+      break;
+  }
+
+  return (
+    <div className="space-y-4">
+      {combinedList.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {combinedList.map((item, index) => (
+            <Badge key={index} variant="default">
+              <p className="font-bold">{item}</p>
+            </Badge>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

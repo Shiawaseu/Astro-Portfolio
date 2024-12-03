@@ -6,7 +6,9 @@ import ProjectCard from '@/components/ProjectCard/ProjectCard.astro';
 import WorkExperienceCard from '@/components/WorkExperienceCard/WorkExperienceCard.astro';
 import BlurFade from '@/components/ui/blur-fade';
 import TypingAnimation from "@/components/ui/typing-animation";
-import Skills from "@/content/skills.mdx"
+import Expertise from "@/content/configurations/expertise.mdx";
+import Section from '@/components/Section/Section.astro';
+
 const projectFiles = await Astro.glob('../content/projects/*.mdx');
 const projectsToDisplay = projectFiles.slice(0, 4);
 
@@ -16,101 +18,76 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
 
 <html lang="en">
   <CommonHeader />
-<body class="min-h-screen">
-  <div class="flex flex-col pt-20">
-    <div class="mx-auto w-full max-w-3xl space-y-16 mb-16">
-      <div class="flex justify-between gap-4">
-        <div class="flex flex-col overflow-hidden max-w-[550px] p-4">
-          <BlurFade client:load className="font-bold text-4xl sm:text-5xl">
-            Hi! I'm Shiawase 👋 
-          </BlurFade>
-          <BlurFade client:load delay={0.4}>
-            <TypingAnimation client:load
-            className="text-lg sm:text-xl mt-1"
-            text="Full-stack developer and cybersecurity enthusiast, learning and building in my free time, based in Saudi Arabia 💚"
-            duration={10}
-            />
-          </BlurFade>
+  <body class="min-h-screen">
+    <div class="flex flex-col pt-20">
+      <div class="mx-auto w-full max-w-3xl space-y-5 mb-16">
+        <div class="flex justify-between gap-4">
+          <div class="flex flex-col overflow-hidden max-w-[550px] p-4">
+            <BlurFade client:load className="font-bold text-4xl sm:text-5xl">
+              Hi! I'm Shiawase 👋 
+            </BlurFade>
+            <BlurFade client:load delay={0.4}>
+              <TypingAnimation client:load
+                className="text-lg sm:text-xl mt-1"
+                text="Full-stack developer and cybersecurity enthusiast, learning and building in my free time, based in Saudi Arabia 💚"
+                duration={10}
+              />
+            </BlurFade>
+          </div>
+          <div class="relative flex-shrink-0 w-36 h-36 sm:w-44 sm:h-44 max-w-full max-h-full">
+            <BlurFade client:load delay={0.6}>
+              <img src="/assets/me.jpg" alt="Profile Picture" class="rounded-full border" />
+            </BlurFade>
+          </div>
         </div>
-        <div class="relative flex-shrink-0 w-36 h-36 sm:w-44 sm:h-44 max-w-full max-h-full">
-          <BlurFade client:load delay={0.4}>
-            <img
-            src="/assets/me.jpg"
-            alt="Profile Picture"
-            class="rounded-full border"
-            />
-          </BlurFade>
-        </div>
+
+        <BlurFade client:load delay={0.8}>
+          <Section title="Skills">
+            <Expertise names="all" filter="skills" />
+          </Section>
+        </BlurFade>
+
+        <BlurFade client:load delay={1.0}>
+          <Section title="Tools">
+            <Expertise names="all" filter="tools" />
+          </Section>
+        </BlurFade>
+
+        <BlurFade client:load delay={1.2}>
+          <Section title={`Projects (${projectFiles.length})`}>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {projectsToDisplay.map((project) => (
+                <ProjectCard 
+                  title={project.frontmatter.title}
+                  description={project.frontmatter.description}
+                  date={project.frontmatter.date}
+                  imageSrc={project.frontmatter.img_logo.src}
+                  imageAlt={project.frontmatter.img_logo.alt}
+                  slug={project.frontmatter.slug}
+                />
+              ))}
+            </div>
+          </Section>
+        </BlurFade>
+
+        <BlurFade client:load delay={1.4}>
+          <Section title="Work Experience">
+            <div class="space-y-4">
+              {experienceFilesToDisplay.map((experience) => (
+                <WorkExperienceCard 
+                  title={experience.frontmatter.title}
+                  description={experience.frontmatter.description}
+                  date={experience.frontmatter.date}
+                  imageSrc={experience.frontmatter.img_logo.src}
+                  imageAlt={experience.frontmatter.img_logo.alt}
+                  role={experience.frontmatter.role}
+                />
+              ))}
+            </div>
+          </Section>
+        </BlurFade>
       </div>
-      <BlurFade client:load delay={0.6}>
-        <div class="flex-col p-4 ">
-          <div class="text-2xl sm:text-3xl font-bold w-fit">
-            ▲ Skills
-          </div>
-          <div class="pt-3">
-            <Skills names="all" showIcons={false}/>
-          </div>
-        </div>
-        <div class="flex-col pt-10 p-4 ">
-          <div class="text-2xl sm:text-3xl font-bold w-fit">
-            ▲ Projects ({projectFiles.length})
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3">
-            {projectsToDisplay.map((project) => (
-              <ProjectCard 
-                title={project.frontmatter.title} 
-                description={project.frontmatter.description} 
-                date={project.frontmatter.date} 
-                imageSrc={project.frontmatter.img_logo.src}
-                imageAlt={project.frontmatter.img_logo.alt}
-                slug={project.frontmatter.slug}
-              />
-            ))}
-          </div>
-        </div>
-        <div class="flex-col pt-10 p-4 ">
-          <div class="text-2xl sm:text-3xl font-bold w-fit">
-            ▲ Work Experience
-          </div>
-          <div class="pt-3 space-y-4">
-            {experienceFilesToDisplay.map((experience) => (
-              <WorkExperienceCard 
-                title={experience.frontmatter.title} 
-                description={experience.frontmatter.description} 
-                date={experience.frontmatter.date} 
-                imageSrc={experience.frontmatter.img_logo.src}
-                imageAlt={experience.frontmatter.img_logo.alt}
-                role={experience.frontmatter.role}
-              />
-            ))}
-          </div>
-        </div>
-        <div class="flex flex-col pt-10 p-4">
-          <div class="text-2xl sm:text-3xl font-bold w-fit">
-            ▲ Contact Me
-          </div>
-          <div class="flex flex-col space-y-5 text-lg pt-3">
-            <p>
-              I'm always open to conversations! If you have something to share, don't hesitate to reach out.
-            </p>
-            <div>
-              <span class="font-semibold">Discord:</span> 
-              <a href="https://discord.com/users/1115643711666278521" class="text-blue-600 dark:text-blue-400 font-medium underline">@shiawaseu</a>
-              <span class="text-sm text-gray-600 dark:text-gray-400 ml-2">(I'm usually active there)</span>
-            </div>
-            <div>
-              <span class="font-semibold">Telegram:</span> 
-              <a href="https://t.me/SHlAWASE" class="text-blue-500 dark:text-blue-300 font-medium underline">@SHlAWASE</a>
-            </div>
-            <div>
-              You can also email me at 
-              <a href="mailto:shiawaseu@proton.me" class="text-blue-600 dark:text-blue-400 font-bold underline">shiawaseu@proton.me</a>
-            </div>
-          </div>
-        </div>
-      </BlurFade>
     </div>
-  </div>
-  <MenuBar/>
-</body>
+    <MenuBar />
+  </body>
 </html>
