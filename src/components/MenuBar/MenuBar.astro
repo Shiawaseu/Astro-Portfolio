@@ -108,6 +108,8 @@ import { Image } from 'astro:assets';
   const trackImageElement = document.querySelector("#track-image") as HTMLImageElement;
   const noTrackMessage = document.querySelector("#no-track-message") as HTMLElement;
 
+  let isPolling = false;
+
   const fetchTrack = async () => {
       try {
           const response = await fetch('/api/GetPlayingTrack');
@@ -148,12 +150,14 @@ import { Image } from 'astro:assets';
     if (artistNameElement.getAttribute('href') === "#") {e.preventDefault()};
   });
 
-  // Fetch playing track every 5 seconds
-  setInterval(fetchTrack, 5000);
-
   const musicBox = document.querySelector("#music-box .music-box") as HTMLElement;
 
   musicButton?.addEventListener("click", () => {
+      if (!isPolling) {
+          fetchTrack();
+          setInterval(fetchTrack, 5000);
+          isPolling = true;
+      }
       if (musicBox?.classList.contains("visible")) {
           musicBox.classList.remove("visible");
       } else {
