@@ -4,7 +4,10 @@ import MenuBar from '@/components/MenuBar/MenuBar.astro';
 import BlurFade from '@/components/ui/blur-fade';
 import { ArrowUpRight } from 'lucide-astro';
 import CommonHeader from '@/components/Headers/CommonHeader.astro';
+
+// Z-A sort
 const blogFiles = await Astro.glob('../../content/blogs/*.mdx');
+blogFiles.sort((a, b) => b.frontmatter.title.localeCompare(a.frontmatter.title));
 const blogsToDisplay = blogFiles.slice(0, 4);
 ---
 
