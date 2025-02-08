@@ -1,0 +1,56 @@
+---
+title: "Whitelist Systems in Roblox | Part 1" 
+description: 'Introduction for a series of articles covering the basics of writing secure authentication for Roblox scripts'
+slug: "rblx-auth1"
+date: "2025-2-5"
+author: "Shiawase"
+
+img:
+ src: '/assets/blog_covers/RBLXWhitelist.png'
+ alt: "Demonstration of roblox authentication flow"
+estimate-reading-time: "3 minutes"
+---
+
+- You can check out the repository for this guide [here](https://github.com/Shiawaseu/RBLX-Whitelist)
+
+# Introduction
+
+In the world of Roblox script development, commercialization of scripts as well as script hubs has become a huge role within the community, mainly due to the many features & perks of one script that exceeds others in quality, espicially for that of top-tier games.
+<br />
+However, with the rise of these paid scripts, the need for secure authentication has become more and more vital, as many developers, even you, may have experienced their scripts being leaked or cracked, or in other words, unauthorized users gaining access to the script without paying for it. Which can lead to negative factors such as loss of revenue, reputation, and even for some, motivation to continue developing their projects.
+<br />
+This series will cover the basics of writing secure authentication for Roblox scripts, so that you can learn how to protect your scripts aswell as a learning resource on how whitelist security works behind the scenes.
+
+## Acknowledgements
+
+As you're reading this guide, you have to keep some basic knowledge in mind, such as follows:
+
+- **No script is ever 100% secure** - This is due to the nature of anything being able to be reverse-engineered.
+- **This is NOT a "template"** - This guide will not provide you with a copy-paste solution, as the code & repository provided within the guide is only meant to teach you how to write your own system, and then expand on it.
+- **No rebundant tricks** - Such as `Anti-Hooks`, as they come in alot of varieties & are inconsistent alot of times, they won't be much of a help in the long run. You're still free to add them on your own though.
+- **You don't have to do it** - If this is too much for you, you can always use a service like **<a href="https://luarmor.net"><span>Lua</span><span className="text-orange-500">rmor</span></a>** or **<a href="https://luawhitelist.com"><span>Lua</span><span className="text-indigo-500">whitelist</span></a>** to handle the authentication for you, though it's I reccomend that you learn how to do it yourself.
+
+## Prequsites & Tech Stack
+
+Before you can start, you'll have to have the following experience & tools:
+
+> I'll also include the links to the resources that've used in the guide, you're free to pick your own.
+
+- **<a className="text-blue-400" href="https://luau.org">Luau</a>** - You'll need to know the basics of it to understand the code that we'll be writing.
+- **<a href="https://nodejs.org/"><span>Node</span><span className="text-green-500">.Js</span></a>** - This is going to be the language that we'll be using to write the backend server with (additional packages to install will be mentioned within the guide).
+- **A database** - You can use any database you want, but for this guide, I'll be using a <a className="text-blue-400" href="https://www.postgresql.org/">Postgres</a> database remotely hosted on <a className="text-green-600" href="https://supabase.com/">Supabase</a>.
+- **An executor** - You can use any executor you want, but for this guide, I'll be using **<a href="https://sirhurt.net/"><span>Sir</span><span className="text-blue-500">hurt</span></a>** | Though any executor would most likley work, aslong as the <code className="text-red-500">request</code> function is present.
+
+
+## Sections
+
+I'll be splitting this guide into multiple parts, they will be split as follows:
+
+- **Part 1** - Introduction & Acknowledgements
+- **Part 2** - Setting up the backend server
+- **Part 3** - Writing the client code
+- **Part 4** - Protecting our whitelist
+- **Part 5** - Expanding on the system / Extra tips & tricks
+
+
+Done reading? Let's move on to [Part 2](/blog/rblx-auth2)!

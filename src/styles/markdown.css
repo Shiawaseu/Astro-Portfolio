@@ -38,6 +38,7 @@ h3 {
 }
 
 p img {
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 
@@ -86,5 +87,9 @@ code {
     margin-right: 1.5rem;
     display: inline-block;
     text-align: center;
-    color: rgba(115,138,148,.4)
+    color: rgba(115,138,148,.4);
   }
+
+  code .line:last-child:empty {
+    display: none;
+}

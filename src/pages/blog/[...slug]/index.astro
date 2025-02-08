@@ -31,13 +31,13 @@ if (!blog) {
             ▲ {blog.frontmatter.title}
           </div>
           <div class="mb-3 pt-3">
-            <p>{blog.frontmatter.description}</p>
+            <p class="mb-2">{blog.frontmatter.description}</p>
             <Image alt={blog.frontmatter.img.alt} src={blog.frontmatter.img.src} width={736} height={100} />
             <p class="text-foreground/50 pt-3">{blog.frontmatter.author} • {blog.frontmatter.date} • {blog.frontmatter['estimate-reading-time']}</p>
           </div>  
           <Separator className="w-full mt-5" />
           <div class="mt-3">
-            <blog.Content />
+            <blog.Content id="blog-content"/>
             </div>   
           </div>
         </div>
