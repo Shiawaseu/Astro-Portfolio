@@ -58,15 +58,18 @@ const refreshAccessToken = async (refreshToken) => {
 
 
 export const getCurrentlyPlayingTrack = async () => {
-  let refreshed = false;
-
-  const accessToken = await redis.get('access_token');
+  let accessToken = await redis.get('access_token');
   const refreshToken = await redis.get('refresh_token');
-  // Check
+
+  // Check (this does not work on the intial request, idk why)
   if (!accessToken) {
-    await refreshAccessToken(refreshToken);
-    refreshed = true
+    const refreshResponse = await refreshAccessToken(refreshToken);
+    if (refreshResponse && refreshResponse.error) {
+      return { error: refreshResponse.error };
+    }
+    accessToken = await redis.get('access_token');
   }
+
   const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -79,9 +82,9 @@ export const getCurrentlyPlayingTrack = async () => {
 
   const data = await response.json();
   if (response.ok) {
-    return {refreshedToken: refreshed, data: data};
+    return { data: data };
   } else {
-    return {refreshedToken: refreshed, error: "Failed to retreive playing songs (Are you logged in?)"};
+    return { error: "Failed to retrieve playing songs (Are you logged in?)" };
   }
 };
 
