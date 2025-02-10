@@ -1,0 +1,148 @@
+---
+title: "Whitelist Systems in Roblox | Part 3" 
+description: '3rd part of the series | Writing up our frontend (client) for our whitelist system'
+slug: "rblx-auth3"
+date: "2025-2-10"
+author: "Shiawase"
+
+img:
+ src: '/assets/blog_covers/RBLXWhitelist.png'
+ alt: "Demonstration of roblox authentication flow"
+estimate-reading-time: "15 minutes"
+---
+
+- If you haven't read the introduction of this guide, you can check it out [here](/blog/rblx-auth1)
+- If you haven't read the previous part, you can check it out [here](/blog/rblx-auth2)
+- You can check out the repository for this guide [here](https://github.com/Shiawaseu/RBLX-Whitelist)
+
+# Introduction
+
+In this part of the guide, we will be setting up our script (front-end) for our whitelist system.
+<br />
+This does not need much of an introduction, it will also be relatively short compared to the previous section.
+
+## Acknowledgements
+- For the remaining of this guide, I will be using the term "script" to refer to the front-end of our whitelist system.
+- Concerning the script-server connection, you will have to keep your local development server running for the script to properly work.
+> | Some executors may **NOT** support connections to local servers, so you may have to use a tunneling service like [ngrok](https://ngrok.com/) to expose your local server to the internet. (You may want to ask your executor's development team for more information on this).
+- When it comes to obfuscating your script, the service to use is entirely up to you. But I HEAVILY recommend using **<a href="https://lura.ph/" className="text-indigo-700">Luraph</a>** for obfuscation, as we are also going to be using some of it's macros in our script.
+  - A good practice when writing scripts you plan on obfuscating is using the <a href="https://github.com/Luraph/macrosdk/blob/main/luraphsdk.lua" className="text-indigo-400">Luraph SDK</a> to avoid potential issues in the obfuscation process (for the reamining of the guide we assume the SDK has been used at the top-most level of the script).
+- **The client is not secured yet** as we are writing the barebones of the whitelist system. We will be adding security measures in the next part of the guide.
+## Setting up our environment
+
+For the script, we will be relying on 1 main function, which is:
+- <code className="text-red-600">request</code> | Could be located under an exploit-specific global or the `http` global table in your exploit.
+ - With the majority of executors following the [UNC](https://github.com/unified-naming-convention/NamingStandard), you shouldn't worry much about writing ternary statements to check for the function's existence.
+
+As for parsing the server response, we will stick to using the `JSONDecode` method provided by the `HttpService` service.
+<br />
+To get started, create a new script in your <code className="text-yellow-600">src/client</code> directory, we will call it <code className="text-blue-600">client.luau</code>, then we can start writing the following:
+
+
+### Local declarations:
+We will declare the necessary variables and functions we will be using in our script.
+```luau
+-- The LPH_CRASH function is a macro provided by Luraph | You don't have to use it like me here.
+local key = getgenv().whitelistKey or LPH_CRASH()
+local HttpService = game:GetService("HttpService")
+-- Feel free to add more functions as needed
+local request = (http and http.request) or request or LPH_CRASH()
+```
+
+### Auth call:
+We will be making a POST request to the server's whitelist endpoint, sending the key as the body of the request.
+```luau
+local response = request({
+    Url = "http://localhost:3000/whitelist",
+    Method = "POST", -- The POST method corresponds to the server's whitelist endpoint
+    Body = HttpService:JSONEncode({
+        whitelistkey = key
+    }),
+    Headers = {
+        ["Content-Type"] = "application/json"
+    }
+})
+```
+
+### Parsing the response:
+We will be parsing the response from the server, checking if the server is healthy (status code is 200), then parsing the body of the response.
+```luau
+if response.StatusCode == 200 then
+    local body = HttpService:JSONDecode(response.Body)
+    if body.valid then
+        print("Whitelisted")
+    else
+        print("Not whitelisted")
+        LPH_CRASH()
+    end
+else
+    print("Server not responding")
+    LPH_CRASH()
+end
+```
+
+### Final result
+Here is the final result of our script:
+```luau
+-- getgenv().whitelistKey = "myexamplekey"
+local key = getgenv().whitelistKey or LPH_CRASH()
+local HttpService = game:GetService("HttpService")
+local request = (http and http.request) or request or LPH_CRASH()
+
+local response = request({
+    Url = "http://localhost:3000/whitelist",
+    Method = "POST",
+    Body = HttpService:JSONEncode({
+        whitelistkey = key
+    }),
+    Headers = {
+        ["Content-Type"] = "application/json"
+    }
+})
+
+if response.StatusCode == 200 then
+    local body = HttpService:JSONDecode(response.Body)
+    if body.valid then
+        print("Whitelisted")
+    else
+        print("Not whitelisted")
+        LPH_CRASH()
+    end
+else
+    print("Server not responding")
+    LPH_CRASH()
+end
+```
+
+## Do NOT send HWIDs manually ❌
+Common mistake made by people is retreiving the HWID manually (usually via requesting an http bin) then sending the response value to the server for verification.
+<br />
+Why you shouldn't do it:
+- **The server already sends the HWID of the client on every request** | So there is no need to send it manually.
+- **Risk of manipulation** | When you retreive the HWID manually, this can be easily manipulated by the client, which can lead to security issues like having multiple users using the same key.
+
+
+## `LPH_CRASH` vs `while true do end `
+
+`LPH_CRASH` is a macro provided by Luraph, and is a much safer and more efficient way to exit the environment in case of an error or an unexpected response from the server.
+- You can read more about it [here](https://lura.ph/dashboard/documents/macros)
+
+## Testing our script
+
+To test our script, we will have to run our local server and then execute the script.
+<br />
+```bash
+node index.js
+```
+
+After running the server, you can execute the script in your executor, and you should see the output in the Roblox console (F9).
+
+<video controls>
+  <source src="/assets/blog_content//RBLXAuth3/execution.mp4" type="video/mp4" />
+</video>
+
+# Conclusion
+
+With this, we have successfully set up our script for our whitelist system.
+<br/>
+In the next part of the guide, we will be adding security measures to our system to prevent whitelist spoofing & attacks. You can check it out [here](/blog/rblx-auth4)
