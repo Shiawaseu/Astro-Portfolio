@@ -6,6 +6,8 @@ import BlogHeader from "@/components/Headers/BlogHeader.astro";
 import BlurFade from "@/components/ui/blur-fade";
 import MenuBar from "@/components/MenuBar/MenuBar.astro";
 import { Separator } from "@/components/ui/separator";
+import { Clock } from "lucide-astro";
+
 const blogFiles = await Astro.glob('../../../content/blogs/*.mdx');
 const { slug } = Astro.params;
 
@@ -33,7 +35,7 @@ if (!blog) {
           <div class="mb-3 pt-3">
             <p class="mb-2">{blog.frontmatter.description}</p>
             <Image alt={blog.frontmatter.img.alt} src={blog.frontmatter.img.src} width={736} height={100} />
-            <p class="text-foreground/50 pt-3">{blog.frontmatter.author} • {blog.frontmatter.date} • {blog.frontmatter['estimate-reading-time']}</p>
+            <p class="text-foreground/50 pt-3">{blog.frontmatter.author} • {blog.frontmatter.date} • <Clock class="inline mb-1 h-4 w-4"/> {blog.frontmatter['estimate-reading-time']}</p>
           </div>  
           <Separator className="w-full mt-5" />
           <div class="mt-3">
