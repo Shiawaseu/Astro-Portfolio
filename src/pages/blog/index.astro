@@ -8,7 +8,7 @@ import CommonHeader from '@/components/Headers/CommonHeader.astro';
 // A-Z sort
 const blogFiles = await Astro.glob('../../content/blogs/*.mdx');
 blogFiles.sort((a, b) => b.file.localeCompare(a.file));
-const blogsToDisplay = blogFiles.slice(0, 4);
+const blogsToDisplay = blogFiles.slice(0, 8);
 ---
 
 <html lang="en">
