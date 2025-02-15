@@ -2,7 +2,7 @@
 import '@/styles/globals.css';
 import MenuBar from '@/components/MenuBar/MenuBar.astro';
 import BlurFade from '@/components/ui/blur-fade';
-import { ArrowUpRight } from 'lucide-astro';
+import { ArrowUpRight, Clock } from 'lucide-astro';
 import CommonHeader from '@/components/Headers/CommonHeader.astro';
 
 // A-Z sort
@@ -25,12 +25,12 @@ const blogsToDisplay = blogFiles.slice(0, 4);
         <BlurFade client:load delay={0.8}>
           <div class="mt-10">
             {blogsToDisplay.map((blog) => (
-              <div class="border-b pb-4 mb-4 space-y-1">
+              <div class="border-b pb-3 mb-3 space-y-1">
                 <h2 class="text-xl font-semibold flex items-center">
                   <a href={`/blog/${blog.frontmatter.slug}`} class="flex items-center">{blog.frontmatter.title} <ArrowUpRight class="ml-1"/> </a> 
                 </h2>
                 <p class="text-foreground/60">{blog.frontmatter.description}</p>
-                <p class="text-sm text-gray-400">{blog.frontmatter.author} • {blog.frontmatter.date} • {blog.frontmatter['estimate-reading-time']}</p>
+                <p class="text-sm text-gray-400">{blog.frontmatter.author} • {blog.frontmatter.date} • <Clock class="inline mb-1 h-4 w-4"/> {blog.frontmatter['estimate-reading-time']}</p>
               </div>
             ))}
           </div>
