@@ -24,4 +24,12 @@ import { ViewTransitions } from "astro:transitions";
     <meta property="og:url" content={Astro.url} />
     <meta property="og:site_name" content="Shiawase" />
 
+    <script type="application/ld+json" set:html={`{
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Shiawase",
+        "url": "${Astro.url}",
+        "description": "Full-stack developer and cybersecurity enthusiast, learning and building in my free time, based in Saudi Arabia 💚",
+        "image": "/assets/me.png"
+    }`}/>
 </head>
