@@ -1,13 +1,13 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-
+import SpeedInsights from "@vercel/speed-insights/astro";
 const {title, description, thumbnail} = Astro.props;
 ---
 <head>
-    <title>{title}</title>
-
+    <SpeedInsights />
     <ViewTransitions />
-
+    
+    <title>{title}</title>
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     
