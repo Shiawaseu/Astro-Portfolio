@@ -1,0 +1,88 @@
+---
+title: "Whitelist Systems in Roblox | Part 5" 
+description: '5th & final part of the series | Extra tips & tricks'
+slug: "rblx-auth5"
+date: "2025-2-21"
+author: "Shiawase"
+
+img:
+ src: '/assets/blog_covers/RBLXWhitelist.png'
+ alt: "Demonstration of roblox authentication flow"
+estimate-reading-time: "12 minutes"
+---
+
+- If you haven't read the introduction of this guide, you can check it out [here](/blog/rblx-auth1)
+- If you haven't read the previous part, you can check it out [here](/blog/rblx-auth4)
+- You can check out the repository for this guide [here](https://github.com/Shiawaseu/RBLX-Whitelist)
+
+# Introduction
+
+In this part, we will be discussing some extra tips and tricks that you can use to improve your whitelist system.
+
+- This is sort of a "bonus" part, you don't have to follow these tips but they can be useful in some cases.
+
+
+# Tip #1 | <span className="text-blue-700">Server-side detections</span>
+
+In our whitelist that we wrote during the series, it is possible that we can catch attackers guaranteedly with **no margin of error**.
+<br />
+This works by creating a new RNG Value we have in our whitelist with a function that returns a **<code className="text-red-500">float</code>** value. Then we can check if the value received on the server-side is a float aswell.
+
+- This is a very effective check to search for RNG manipulation, and it is very subtle to the attacker.
+
+I'll write the example in a semi-standalone pseudocode, so you can understand it better.
+
+```luau
+local number = math.random() -- This will return a FLOAT (a number with decimal places)
+local sendingNumber = math.random(1,100000) + number -- To help avoid the attacker to spoof the value to a float aswell, add a number to it.
+
+-- Send The number to the server
+```
+
+Now here's the catchy part:
+```js
+// Check for float on the server
+if (number % 1 !== 0) {
+    // Number is a float | Continue checks
+} else {
+    // Number is not a float | blacklist the player automatically
+}
+```
+
+This helps with early attack prevention, and it is one of the only effective yet subtle ways to detect tampering.
+
+# Tip #2 | <span className="text-rose-500">Certificate Pinning</span>
+
+- You need basic comprehension of how HTTPS & TLS works in order to implement this.
+- If you want to read more about Certificate Pinning, you can check out **<a href="https://en.wikipedia.org/wiki/Certificate_pinning" className="text-blue-500">this</a>** page
+
+## What is Certificate Pinning?
+<span className="text-foreground/50">Sources: [Link 1](https://en.wikipedia.org/wiki/HTTP_Public_Key_Pinning) [Link 2](https://www.ssl.com/blogs/what-is-certificate-pinning/) | Apologies for the guide looking like a children's colorbook, it's for your attention span</span>
+<br />
+<br/>
+Certificate pinning is a security mechanism used in the context of authenticating client-server connections, particularly in the context of secure communication over HTTPS (Hypertext Transfer Protocol Secure) or other TLS (Transport Layer Security) protocols. Its primary purpose is to enhance the security of the connection by mitigating the risk of man-in-the-middle (MITM) attacks and ensuring that the client only communicates with a trusted server.
+
+How does Certificate Pinning Work?
+- **Standard Certificate Validation**: In a typical TLS handshake, when a client connects to a server, the server presents its digital certificate to the client. The client then checks the certificate's authenticity by verifying that it has been signed by a trusted Certificate Authority (CA) and that it hasn't expired or been revoked. If the checks pass, the client proceeds with the secure connection.
+- **Pinning Trust**: Certificate pinning takes the trust verification a step further. Instead of solely relying on the CA system, the client's application or device has a preconfigured list of public keys or certificates that it explicitly trusts.
+
+## MITM? What's that?
+MITM stands for **<span className="text-red-500">Man-In-The-Middle</span>**. It is a type of cyber attack where the attacker secretly intercepts and possibly alters the communication between two parties who believe they are directly communicating with each other. This can lead to sensitive information being stolen or manipulated without the knowledge of the communicating parties.
+
+## Okay, how does it help?
+In our context, the attacker can intercept the communication between the client and the server and read them **externally** using tools like **<span className="text-green-500 font-bold">Fiddler</span>** or **<span className="text-blue-500 font-bold">Wireshark</span>**. Which can ultimately negate any sort of **<span className="text-purple-500">Anti-Hook</span>** you've implemented within your client.
+<br/>
+How these tools work is that they act as a proxy between the client and the server presenting a **<span className="text-red-500">fake certificate</span>** to the client, and the client will trust it because it is signed by a trusted Certificate Authority (CA).
+<br/>
+By implementing **<span className="text-blue-500">Certificate Pinning</span>**, you can prevent this from happening by making sure that the client only communicates with a trusted server. This is done by comparing the server's certificate with a preconfigured list of public keys or certificates that the client trusts.
+
+- Older gen executors like Synapse X used to run checks for reverse proxies by default, though they were not very effective.
+
+# Tip #3 | <span className="text-green-500">Raw Implementations</span>
+By raw implementations, I'm referring to avoiding the use of direct library functions & methods to help minimize risk of hooks.
+<br />
+
+For instance, instead of relying on `HttpService`'s `JSONDecode` to parse the response body, you can write your own JSON parser or use an external one like [this](https://github.com/rxi/json.lua/blob/master/json.lua). This would make it harder for the attacker to spoof your response.
+
+# Conclusion
+With that, we've concluded everything necessary for a whitelist system! I hope you've learned something new from this series, and I hope you can implement what I've provided & also improve on it, good luck!
