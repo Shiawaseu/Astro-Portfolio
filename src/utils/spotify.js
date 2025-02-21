@@ -94,5 +94,5 @@ export const getAuthUrl = () => {
 
 export const handleAuthRedirect = async (code) => {
   await fetchTokens(code);
-  return { success: true, message: "You've set up the Spotify, you don't need to do this again." };
+  return { success: true, message: "You've set up the Spotify, you won't need to do this again." };
 };
