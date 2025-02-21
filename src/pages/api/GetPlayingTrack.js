@@ -39,7 +39,7 @@ export async function GET() {
     const trackCover = (trackItem.album.images[0] ? trackItem.album.images[0].url : null);
     
     // const startedTime = new Date(trackData.timestamp).toLocaleString();
-    const songProgress = trackData.progress_ms
+    // const songProgress = trackData.progress_ms
 
     const result = {
       refreshedToken: FetchResponse.refreshedToken,
@@ -48,7 +48,7 @@ export async function GET() {
       trackName,
       trackURL,
       trackCover,
-      songProgress, // I will hopefully add some functionality for this
+     // songProgress, I will hopefully add some functionality for this
     };
     return new Response(JSON.stringify(result), {
       status: 200,
