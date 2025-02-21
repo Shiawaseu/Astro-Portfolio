@@ -11,9 +11,9 @@ A sleek, professional and responsive open-source portfolio built with Astro with
 | **Optimized Performance ⚙️** | Built with Astro, focusing on fast load times and minimal resource usage.                      |
 | **Project Showcase 📜**   | Dedicated sections for highlighting projects, complete with images, descriptions, and links.     |
 | **Skills Badges ⚒️**      | Display your skills and technologies with customizable badges for quick visual reference.        |                     |
-| **Spotify Integration 🎧**      | Displays the song currently playing on Spotify, giving a personal touch to the portfolio.        |                     |
-| **SEO Optimized 🔰** | Built with SEO best practices to improve search engine rankings Open Graph and Twitter Card integration for better social media visibility.                      |
-| **Open-Source 🖥️**       | Fully open-source, allowing others to fork, contribute, and personalize the portfolio.            |
+| **Spotify Integration 🎧**      | Displays the song currently playing on Spotify.        |                     |
+| **SEO Optimized 🔰** | Built with SEO best practices to improve search engine rankings.                      |
+| **Live Insights ⚡** | Using Vercel's provided tools, you can track visitor count & function speed for the portfolio.                      |
 
 # Showcase
 https://github.com/user-attachments/assets/a386cd13-83f5-44c6-910e-c09a470dfafe
@@ -62,3 +62,6 @@ All commands are run from the root of the project, from a terminal:
   - Once you have done that, you should be ready to go.
 
 </details>
+
+# License
+This project is Licensed under the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
