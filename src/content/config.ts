@@ -30,7 +30,23 @@ const projectCollection = defineCollection({
   }),
 });
 
+const workExperienceCollection = defineCollection({
+  loader: glob({pattern: "**/*.{md,mdx}", base: "./src/content/workexperience"}),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    role: z.string(),
+    description: z.string(),
+    slug: z.string(),
+    img_logo: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+  }),
+});
+
 export const collections = {
   blogs: blogCollection,
   projects: projectCollection,
+  WorkExperience: workExperienceCollection,
 };
