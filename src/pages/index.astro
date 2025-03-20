@@ -14,7 +14,7 @@ import { getCollection } from 'astro:content';
 const projectFiles = await getCollection("projects");
 const projectsToDisplay = projectFiles.slice(0, 4);
 
-const experienceFiles = await getCollection("WorkExperience");
+const experienceFiles = await getCollection("experiences");
 const experienceFilesToDisplay = experienceFiles.slice(0, 4);
 ---
 
