@@ -3,7 +3,6 @@ import { ViewTransitions } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
 const {title, description, icon} = Astro.props;
 ---
-<head>
     <ViewTransitions />
     <SpeedInsights />
     <title>{title}</title>
@@ -35,4 +34,3 @@ const {title, description, icon} = Astro.props;
         "url": "${Astro.url}",
         "image": "${icon}"
     }`}/>
-</head>
