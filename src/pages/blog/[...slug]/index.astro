@@ -1,6 +1,7 @@
 ---
-import "@/styles/globals.css"
-import "@/styles/markdown.css"
+import "@/styles/globals.css";
+import "@/styles/markdown.css";
+import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import BlogHeader from "@/components/Headers/BlogHeader.astro";
 import BlurFade from "@/components/ui/blur-fade";
@@ -8,41 +9,44 @@ import MenuBar from "@/components/MenuBar/MenuBar.astro";
 import { Separator } from "@/components/ui/separator";
 import { Clock } from "lucide-astro";
 
-const blogFiles = await Astro.glob('../../../content/blogs/*.mdx');
+const blogs = await getCollection("blogs");
 const { slug } = Astro.params;
 
 if (!slug) {
-    return Astro.redirect("/NotFound")
+    return Astro.redirect("/blog");
 }
 
-const blog = blogFiles.find((p) => p.frontmatter.slug.toLowerCase() === slug.toLowerCase());
+const blog = blogs.find((p) => p.data.slug.toLowerCase() === slug.toLowerCase());
 
 if (!blog) {
-    return Astro.redirect("/NotFound")
+    return Astro.redirect("/NotFound");
 }
+
+const { Content } = await render(blog);
+
 ---
 
 <html lang="en">
-<BlogHeader title={blog.frontmatter.title} description={blog.frontmatter.description} thumbnail={blog.frontmatter.img.src} />
+<BlogHeader title={blog.data.title} description={blog.data.description} thumbnail={blog.data.img.src} />
 <body class="min-h-screen mb-20">
   <div class="flex flex-col pt-20">
     <BlurFade delay={0.6} client:load>
     <div class="mx-auto w-full max-w-3xl space-y-16">
         <div class="flex-col pt-10 p-4">
           <div class="text-4xl sm:text-4xl font-bold w-fit">
-            ▲ {blog.frontmatter.title}
+            ▲ {blog.data.title}
           </div>
           <div class="mb-3 pt-3">
-            <p class="mb-2">{blog.frontmatter.description}</p>
-            <Image alt={blog.frontmatter.img.alt} src={blog.frontmatter.img.src} width={736} height={100} />
-            <p class="text-foreground/50 pt-3">{blog.frontmatter.author} • {blog.frontmatter.date} • <Clock class="inline mb-1 h-4 w-4"/> {blog.frontmatter['estimate-reading-time']}</p>
+            <p class="mb-2">{blog.data.description}</p>
+            <Image alt={blog.data.img.alt} src={blog.data.img.src} width={736} height={100} />
+            <p class="text-foreground/50 pt-3">{blog.data.author} • {blog.data.date} • <Clock class="inline mb-1 h-4 w-4"/> {blog.data['estimate-reading-time']}</p>
           </div>  
           <Separator className="w-full mt-5" />
           <div class="mt-3">
-            <blog.Content id="blog-content"/>
-            </div>   
-          </div>
+            <Content id="blog-content"/>
+          </div>   
         </div>
+      </div>
       </BlurFade>
     </div>
   </div>
