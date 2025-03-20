@@ -52,5 +52,5 @@ const workExperienceCollection = defineCollection({
 export const collections = {
   blogs: blogCollection,
   projects: projectCollection,
-  WorkExperience: workExperienceCollection,
+  experiences: workExperienceCollection,
 };
