@@ -8,11 +8,12 @@ import BlurFade from '@/components/ui/blur-fade';
 import TypingAnimation from "@/components/ui/typing-animation";
 import Expertise from "@/content/configurations/expertise.mdx";
 import Section from '@/components/Section/Section.astro';
+import { getCollection } from 'astro:content';
 
-const projectFiles = await Astro.glob('../content/projects/*.mdx');
+const projectFiles = await getCollection("projects");
 const projectsToDisplay = projectFiles.slice(0, 4);
 
-const experienceFiles = await Astro.glob('../content/WorkExperience/*.mdx');
+const experienceFiles = await getCollection("WorkExperience");
 const experienceFilesToDisplay = experienceFiles.slice(0, 4);
 ---
 
@@ -58,12 +59,12 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {projectsToDisplay.map((project) => (
                 <ProjectCard 
-                  title={project.frontmatter.title}
-                  description={project.frontmatter.description}
-                  date={project.frontmatter.date}
-                  imageSrc={project.frontmatter.img_logo.src}
-                  imageAlt={project.frontmatter.img_logo.alt}
-                  slug={project.frontmatter.slug}
+                  title={project.data.title}
+                  description={project.data.description}
+                  date={project.data.date}
+                  imageSrc={project.data.img_logo.src}
+                  imageAlt={project.data.img_logo.alt}
+                  slug={project.data.slug}
                 />
               ))}
             </div>
@@ -75,12 +76,12 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
             <div class="space-y-4">
               {experienceFilesToDisplay.map((experience) => (
                 <WorkExperienceCard 
-                  title={experience.frontmatter.title}
-                  description={experience.frontmatter.description}
-                  date={experience.frontmatter.date}
-                  imageSrc={experience.frontmatter.img_logo.src}
-                  imageAlt={experience.frontmatter.img_logo.alt}
-                  role={experience.frontmatter.role}
+                  title={experience.data.title}
+                  description={experience.data.description}
+                  date={experience.data.date}
+                  imageSrc={experience.data.img_logo.src}
+                  imageAlt={experience.data.img_logo.alt}
+                  role={experience.data.role}
                 />
               ))}
             </div>
