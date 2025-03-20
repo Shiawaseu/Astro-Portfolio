@@ -10,11 +10,11 @@ const blogCollection = defineCollection({
     date: z.string(),
     slug: z.string(),
     ["estimate-reading-time"]: z.string(),
-  }),
     img: z.object({
       src: z.string(),
       alt: z.string(),
     }),
+  }),
 });
 
 const projectCollection = defineCollection({
