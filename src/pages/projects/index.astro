@@ -6,8 +6,9 @@ import BlurFade from '@/components/ui/blur-fade';
 import CommonHeader from '@/components/Headers/CommonHeader.astro';
 import { getCollection } from 'astro:content';
 
+
+// Todo: Implement pagination here aswell (please fix the god awful dev server sluggishness)
 const projectFiles = await getCollection("projects");
-const projectsToDisplay = projectFiles.slice(0, 4);
 ---
 
 <html lang="en">
@@ -23,7 +24,7 @@ const projectsToDisplay = projectFiles.slice(0, 4);
           </BlurFade>
           <BlurFade client:load delay={0.8}>
            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3">
-            {projectsToDisplay.map((project) => (
+            {projectFiles.map((project) => (
               <ProjectCard 
                 title={project.data.title} 
                 description={project.data.description} 
