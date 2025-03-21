@@ -1,9 +1,7 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
 ---
-    <ViewTransitions />
-    <SpeedInsights />
     <title>Shiawase</title>
 
     <meta name="theme-color" content="#FFFFFF">
@@ -33,3 +31,5 @@ import SpeedInsights from "@vercel/speed-insights/astro";
         "description": "Full-stack developer and cybersecurity enthusiast, learning and building in my free time, based in Saudi Arabia 💚",
         "image": "/assets/me.png"
     }`}/>
+    <SpeedInsights />
+    <ClientRouter />
