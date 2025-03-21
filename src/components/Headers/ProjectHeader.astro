@@ -1,10 +1,8 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
 const {title, description, icon} = Astro.props;
 ---
-    <ViewTransitions />
-    <SpeedInsights />
     <title>{title}</title>
 
     <meta name="theme-color" content="#FFFFFF">
@@ -34,3 +32,5 @@ const {title, description, icon} = Astro.props;
         "url": "${Astro.url}",
         "image": "${icon}"
     }`}/>
+        <ClientRouter />
+        <SpeedInsights />
