@@ -4,6 +4,10 @@
 
 A sleek, professional and responsive open-source portfolio built with Astro with customizable features and content.
 
+https://github.com/user-attachments/assets/a386cd13-83f5-44c6-910e-c09a470dfafe
+
+# Features
+
 | Feature               | Description                                                                                      |
 |-----------------------|--------------------------------------------------------------------------------------------------|
 | **Responsive Design 💡** | Optimized layout for various screen sizes. |
@@ -15,8 +19,6 @@ A sleek, professional and responsive open-source portfolio built with Astro with
 | **SEO Optimized 🔰** | Built with SEO best practices to improve search engine rankings.                      |
 | **Live Insights ⚡** | Using Vercel's provided tools, you can track visitor count & function speed for the portfolio.                      |
 
-# Showcase
-https://github.com/user-attachments/assets/a386cd13-83f5-44c6-910e-c09a470dfafe
 
 ## Astro Commands
 
