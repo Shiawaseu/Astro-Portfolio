@@ -10,6 +10,7 @@ import TypingAnimation from "@/components/ui/typing-animation";
 import Expertise from "@/content/configurations/expertise.mdx";
 import Section from '@/components/Section/Section.astro';
 import { getCollection } from 'astro:content';
+import { Badge } from '@/components/ui/badge';
 
 const projectFiles = await getCollection("projects");
 const projectsToDisplay = projectFiles.slice(0, 4);
@@ -25,10 +26,10 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
   <body class="min-h-screen">
     <div class="flex flex-col pt-20">
       <div class="mx-auto w-full max-w-3xl space-y-5 mb-16">
-        <div class="flex justify-between gap-4">
+        <div class="flex justify-between">
           <div class="flex flex-col overflow-hidden max-w-[550px] p-4">
             <BlurFade client:load className="font-bold text-4xl sm:text-5xl">
-              Hi! I'm Shiawase 👋 
+              Hi! I&#39;m Shiawase 👋 
             </BlurFade>
             <BlurFade client:load delay={0.4}>
               <TypingAnimation client:load
@@ -38,12 +39,18 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
               />
             </BlurFade>
           </div>
-          <div class="relative flex-shrink-0 w-36 h-36 sm:w-44 sm:h-44 max-w-full max-h-full">
+          <div class="relative flex-shrink-0 w-44 h-44 mr-2 max-w-full max-h-full">
             <BlurFade client:load delay={0.6}>
               <img src="/assets/me.png" alt="Profile Picture" class="rounded-full border" />
             </BlurFade>
           </div>
         </div>
+
+        <BlurFade client:load delay={0.6}>
+          <Section title="About Me">
+            <p>I am 16 years old. Started coding when I was around 11 as a hobby, working mainly on <a href="https://roblox.com" class="underline decoration-wavy">Roblox</a> games (and still do!). Nowadays, most of my free time goes into writing new projects, experimenting with new ideas, or just figuring stuff out for fun. I enjoy the process as much as the results! </p>
+          </Section>
+        </BlurFade>
 
         <BlurFade client:load delay={0.8}>
           <Section title="Skills">
@@ -88,6 +95,12 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
                 />
               ))}
             </div>
+          </Section>
+        </BlurFade>
+        <BlurFade client:load delay={1.6}>
+          <Section title="Contact Me">
+            <p>If you would like to contact me, please do not hesitate to do so!</p>
+            <p>I'm <strong>usually</strong> open for casual chats, but you can also contact me with your project ideas 👀</p>
           </Section>
         </BlurFade>
       </div>
