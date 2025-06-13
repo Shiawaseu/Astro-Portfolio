@@ -4,7 +4,7 @@
 
 A sleek, professional and responsive open-source portfolio built with Astro with customizable features and content.
 
-https://github.com/user-attachments/assets/a386cd13-83f5-44c6-910e-c09a470dfafe
+https://github.com/user-attachments/assets/c18d1077-d644-4564-810d-e17a0c54a013
 
 # Features
 
