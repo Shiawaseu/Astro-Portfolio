@@ -29,8 +29,8 @@ const projectCollection = defineCollection({
       src: z.string(),
       alt: z.string(),
     }),
-    github: z.string().url(),
-    website: z.string().url(),
+    github: z.string().url().nullable(),
+    website: z.string().url().nullable(),
   }),
 });
 

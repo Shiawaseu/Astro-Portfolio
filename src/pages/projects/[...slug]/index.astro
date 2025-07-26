@@ -47,18 +47,32 @@ const { Content } = await render(project);
           <Separator className="w-full mt-5" />
           <div class="mt-3">
             <div class="flex space-x-3 mb-10">
-              <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="no-underline">
-                <Button className="flex items-center">
+              {project.data.github ? (
+                <a href={project.data.github} target="_blank" rel="noopener noreferrer" class="no-underline">
+                  <Button className="flex items-center">
+                    <Github className="w-5 h-5 mr-2" />
+                    <span>Github</span>
+                  </Button>
+                </a>
+              ) : (
+                <Button className="flex items-center" disabled>
                   <Github className="w-5 h-5 mr-2" />
                   <span>Github</span>
                 </Button>
-              </a>
-              <a href={project.data.website} target="_blank" rel="noopener noreferrer" class="no-underline">
-                <Button className="flex items-center">
+              )}
+              {project.data.website ? (
+                <a href={project.data.website} target="_blank" rel="noopener noreferrer" class="no-underline">
+                  <Button className="flex items-center">
+                    <SquareArrowOutUpRight className="w-5 h-5 mr-2" />
+                    <span>Website</span>
+                  </Button>
+                </a>
+              ) : (
+                <Button className="flex items-center" disabled>
                   <SquareArrowOutUpRight className="w-5 h-5 mr-2" />
                   <span>Website</span>
                 </Button>
-              </a>    
+              )}
             </div>   
             <Content id="project-content" />
           </div>

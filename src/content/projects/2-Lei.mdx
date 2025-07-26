@@ -1,0 +1,53 @@
+---
+title: "Lei"
+date: July 2024 - April 2025
+description: "Lei is a Proof of Concept (PoC) project which accommodates a collection of Go bindings to Luau"
+slug: "lei"
+skills: "go,luau"
+img_logo:
+  src: "/assets/Lei.png"
+  alt: "Lei"
+github: "https://github.com/CompeyDev/lei"
+website: null
+---
+
+
+## Project Overview
+Lei is a Go library that provides idiomatic bindings to Luau.
+
+By exposing Luau's virtual machine and stack operations through Go, Lei enables developers to leverage the flexibility of scripting within high-performance Go programs.
+
+## Core Features
+- **Comprehensive Luau VM Bindings**: Access to Luau's virtual machine, stack, and data types from Go.
+- **Script Embedding and Execution**: Run Luau scripts, pass data between Go and Luau, and handle results natively.
+- **Userdata and Metatable Support**: Expose Go objects to Luau scripts and customize their behavior.
+- **Performance-Oriented**: Designed to minimize overhead and leverage Go's concurrency and memory safety.
+
+
+## Example Usage
+```go
+package main
+
+import lualib "github.com/CompeyDev/lei/ffi"
+
+func main() {
+	lua := lualib.LNewState()
+	println("Lua VM Address: ", lua)
+
+	lualib.PushCFunction(lua, func(L *lualib.LuaState) int32 {
+		println("hi from closure?")
+		return 0
+	})
+
+	lualib.PushString(lua, "123")
+	lualib.PushNumber(lua, lualib.ToNumber(lua, 2))
+
+	if !lualib.IsCFunction(lua, 1) {
+		panic("CFunction was not correctly pushed onto stack")
+	}
+
+	if !lualib.IsNumber(lua, 3) {
+		panic("Number was not correctly pushed onto stack")
+	}
+}
+```
