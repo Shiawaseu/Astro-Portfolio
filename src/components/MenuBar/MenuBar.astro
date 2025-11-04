@@ -89,124 +89,114 @@ import { Image } from 'astro:assets';
 </div>
 
 <script>
+  // This is all the logic behind the menu bar | including themes
+
   interface SpotifyTrackData {
-    refreshedToken: boolean;
-    artistName: string;
-    artistURL: string | null;
-    trackName: string;
-    trackURL: string | null;
-    trackCover: string | null;
-    songProgress: number;
+  refreshedToken: boolean;
+  artistName: string;
+  artistURL: string | null;
+  trackName: string;
+  trackURL: string | null;
+  trackCover: string | null;
+  songProgress: number;
+}
+
+
+  const musicButton = document.querySelector("#listening") as HTMLElement;
+  const trackNameElement = document.querySelector("#track-name") as HTMLAnchorElement;
+  const artistNameElement = document.querySelector("#artist-name") as HTMLAnchorElement;
+  const trackImageElement = document.querySelector("#track-image") as HTMLImageElement;
+  const noTrackMessage = document.querySelector("#no-track-message") as HTMLElement;
+
+  let isPolling = false;
+
+  const fetchTrack = async () => {
+      try {
+          const response = await fetch('/api/GetPlayingTrack');
+
+          if (response.status == 200) {
+              const data: SpotifyTrackData = await response.json();
+              
+              trackImageElement.src = data.trackCover ? data.trackCover : "//:0";
+
+              trackImageElement.onload = () => {
+                  trackImageElement.classList.remove("opacity-0");
+              };
+
+              trackNameElement.textContent = data.trackName;
+              trackNameElement.href = (data.trackURL ? data.trackURL : "#")
+              artistNameElement.textContent = (data.artistName == "" ? "Unknown Artist" : data.artistName);
+              artistNameElement.href = (data.artistURL ? data.artistURL : "#")
+
+              artistNameElement.classList.remove("hidden");
+              trackNameElement.classList.remove("hidden");
+              noTrackMessage.classList.add("hidden");
+          } else {
+              trackImageElement.classList.add("opacity-0");
+              artistNameElement.classList.add("hidden");
+              trackNameElement.classList.add("hidden");
+              noTrackMessage.classList.remove("hidden");
+          }
+      } catch (error) {
+          console.error('Error fetching track:', error);
+      }
+  };
+
+  trackNameElement.addEventListener('click', (e: MouseEvent) => {
+    if (trackNameElement.getAttribute('href') === "#") {e.preventDefault()};
+  });
+
+  artistNameElement.addEventListener('click', (e: MouseEvent) => {
+    if (artistNameElement.getAttribute('href') === "#") {e.preventDefault()};
+  });
+
+  const musicBox = document.querySelector("#music-box .music-box") as HTMLElement;
+
+  musicButton?.addEventListener("click", () => {
+      if (!isPolling) {
+          fetchTrack();
+          setInterval(fetchTrack, 5000);
+          isPolling = true;
+      }
+      if (musicBox?.classList.contains("visible")) {
+          musicBox.classList.remove("visible");
+      } else {
+          musicBox?.classList.add("visible");
+      }
+  });
+
+  const themeSelector = document.querySelector("#theme-selector") as HTMLElement;
+
+  function setTheme(theme: string) {
+      const htmlElement = document.documentElement;
+
+      if (theme === "dark") {
+          htmlElement.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+      } else {
+          htmlElement.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+      }
   }
 
-  function setupMenuBar() {
-    const musicButton = document.querySelector("#listening") as HTMLElement;
-    const trackNameElement = document.querySelector("#track-name") as HTMLAnchorElement;
-    const artistNameElement = document.querySelector("#artist-name") as HTMLAnchorElement;
-    const trackImageElement = document.querySelector("#track-image") as HTMLImageElement;
-    const noTrackMessage = document.querySelector("#no-track-message") as HTMLElement;
-    const themeSelector = document.querySelector("#theme-selector") as HTMLElement;
-    const musicBox = document.querySelector("#music-box .music-box") as HTMLElement;
-
-    let pollInterval: number | null = null;
-
-    const fetchTrack = async () => {
-      try {
-        const response = await fetch('/api/GetPlayingTrack');
-
-        if (response.status === 200) {
-          const data: SpotifyTrackData = await response.json();
-
-          trackImageElement.src = data.trackCover || "//:0";
-          trackImageElement.onload = () => {
-            trackImageElement.classList.remove("opacity-0");
-          };
-
-          trackNameElement.textContent = data.trackName;
-          trackNameElement.href = data.trackURL || "#";
-          artistNameElement.textContent = data.artistName || "Unknown Artist";
-          artistNameElement.href = data.artistURL || "#";
-
-          artistNameElement.classList.remove("hidden");
-          trackNameElement.classList.remove("hidden");
-          noTrackMessage.classList.add("hidden");
-        } else {
-          trackImageElement.classList.add("opacity-0");
-          artistNameElement.classList.add("hidden");
-          trackNameElement.classList.add("hidden");
-          noTrackMessage.classList.remove("hidden");
-        }
-      } catch (error) {
-        console.error('Error fetching track:', error);
-      }
-    };
-
-    trackNameElement.addEventListener('click', (e: MouseEvent) => {
-      if (trackNameElement.getAttribute('href') === "#") e.preventDefault();
-    });
-    artistNameElement.addEventListener('click', (e: MouseEvent) => {
-      if (artistNameElement.getAttribute('href') === "#") e.preventDefault();
-    });
-
-    const startPolling = () => {
-      if (pollInterval === null) {
-        fetchTrack();
-        pollInterval = window.setInterval(fetchTrack, 3000);
-      }
-    };
-
-    const stopPolling = () => {
-      if (pollInterval !== null) {
-        clearInterval(pollInterval);
-        pollInterval = null;
-      }
-    };
-
-    // Music box toggle
-    musicButton?.addEventListener("click", () => {
-      const isVisible = musicBox?.classList.toggle("visible");
-      if (isVisible) {
-        startPolling();
-      } else {
-        stopPolling();
-      }
-    });
-
-    // Theme
-    function setTheme(theme: string) {
-      const htmlElement = document.documentElement;
-      if (theme === "dark") {
-        htmlElement.classList.add("dark");
-        localStorage.setItem("theme", "dark");
-      } else {
-        htmlElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-      }
-    }
-
-    function loadThemePreference() {
+  function loadThemePreference() {
       const savedTheme = localStorage.getItem("theme");
       if (savedTheme) {
-        setTheme(savedTheme);
+          setTheme(savedTheme);
       } else {
-        setTheme("light");
+          setTheme("light");
       }
-    }
-
-    themeSelector?.addEventListener("click", () => {
-      const currentTheme = localStorage.getItem("theme") === "dark" ? "light" : "dark";
-      setTheme(currentTheme);
-    });
-
-    loadThemePreference();
-
-    // Stop polling
-    window.addEventListener("beforeunload", stopPolling);
-    document.addEventListener("astro:before-swap", stopPolling); // For Astro transitions
   }
 
+  themeSelector?.addEventListener("click", () => {
+      const currentTheme = localStorage.getItem("theme") === "dark" ? "light" : "dark";
+      setTheme(currentTheme);
+  });
+
+  loadThemePreference();
+
+  // Astro transitions
   document.addEventListener("astro:page-load", () => {
-    setupMenuBar();
+      loadThemePreference();
   });
 </script>
-
