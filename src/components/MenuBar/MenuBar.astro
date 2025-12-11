@@ -3,12 +3,11 @@ import { Home, BookText, Github, Mail, MoonStar, Music, Wrench, Sun, Coffee } fr
 import "./MenuBar.css"
 import "./Balloon.css"
 import { Separator } from "@/components/ui/separator";
-import BlurFade from '@/components/ui/blur-fade.tsx';
 import { Image } from 'astro:assets';
 
 ---
 
-<div class="fixed left-0 right-0 bottom-3 flex justify-center">
+<div class="fixed left-0 right-0 bottom-3 flex justify-center" transition:persist transition:persist-props>
   <div
     class="resizeable-container relative flex bg-background shadow-lg border max-w-1/6 h-14 rounded-full justify-start items-center pl-5 pr-5 space-x-3 transition-transform duration-300"
   >
@@ -84,7 +83,6 @@ import { Image } from 'astro:assets';
     </button>
     </div>
   </div>
-  </BlurFade>
 </div>
 
 <script>
