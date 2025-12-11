@@ -3,7 +3,7 @@ import { getCurrentlyPlayingTrack } from '../../utils/spotify';
 export async function GET() {
     const featureEnabled = import.meta.env["SPOTIFY_ENABLED"];
 
-    if (featureEnabled == "false") {
+    if (featureEnabled == "false" || import.meta.env["SPOTIFY_CLIENT_ID"] == undefined) {
       return new Response(null, {
         status: 204
       });
