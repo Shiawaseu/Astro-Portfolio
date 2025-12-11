@@ -28,11 +28,11 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
       <div class="mx-auto w-full max-w-3xl space-y-5 mb-16">
         <div class="flex justify-between">
           <div class="flex flex-col overflow-hidden max-w-[550px] p-4">
-            <BlurFade client:load className="font-bold text-4xl sm:text-5xl">
+            <BlurFade client:idle className="font-bold text-4xl sm:text-5xl">
               Hi! I&#39;m Shiawase 👋 
             </BlurFade>
-            <BlurFade client:load delay={0.4}>
-              <TypingAnimation client:load
+            <BlurFade client:idle delay={0.4}>
+              <TypingAnimation client:idle
                 className="text-lg sm:text-xl mt-1"
                 text="Full-stack developer and cybersecurity researcher, learning and building in my free time, based in Saudi Arabia 💚"
                 duration={10}
@@ -40,31 +40,31 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
             </BlurFade>
           </div>
           <div class="relative flex-shrink-0 w-44 h-44 mr-2 max-w-full max-h-full">
-            <BlurFade client:load delay={0.6}>
+            <BlurFade client:idle delay={0.6}>
               <img src="/assets/Me.jpg" alt="Profile Picture" class="rounded-full border" />
             </BlurFade>
           </div>
         </div>
 
-        <BlurFade client:load delay={0.6}>
+        <BlurFade client:idle delay={0.6}>
           <Section title="About Me">
             <p>Started coding when I was around 11 as a hobby, working mainly on <a href="https://roblox.com" class="underline decoration-wavy">Roblox</a> games (and still do!). Nowadays, most of my free time goes into writing new projects, experimenting with new ideas, or just figuring stuff out for fun. I enjoy the process as much as the results. </p>
           </Section>
         </BlurFade>
 
-        <BlurFade client:load delay={0.8}>
+        <BlurFade client:idle delay={0.8}>
           <Section title="Skills">
             <Expertise names="all" filter="skills" />
           </Section>
         </BlurFade>
 
-        <BlurFade client:load delay={1.0}>
+        <BlurFade client:idle delay={1.0}>
           <Section title="Tools">
             <Expertise names="all" filter="tools" />
           </Section>
         </BlurFade>
 
-        <BlurFade client:load delay={1.2}>
+        <BlurFade client:idle delay={1.2}>
           <Section title={`Projects (${projectFiles.length})`}>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {projectsToDisplay.map((project) => (
@@ -81,7 +81,7 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
           </Section>
         </BlurFade>
 
-        <BlurFade client:load delay={1.4}>
+        <BlurFade client:idle delay={1.4}>
           <Section title="Works & Contributions">
             <div class="space-y-4">
               {experienceFilesToDisplay.map((experience) => (
@@ -97,7 +97,7 @@ const experienceFilesToDisplay = experienceFiles.slice(0, 4);
             </div>
           </Section>
         </BlurFade>
-        <BlurFade client:load delay={1.6} className='mb-12'>
+        <BlurFade client:idle delay={1.6} className='mb-12'>
           <Section title="Contact Me">
             <p>If you would like to contact me, please do not hesitate to do so!</p>
             <p>I'm <strong>usually</strong> open for casual chats, but you can also contact me with your project ideas ❤️</p>

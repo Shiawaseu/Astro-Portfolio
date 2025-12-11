@@ -8,8 +8,7 @@ import { Image } from 'astro:assets';
 
 ---
 
-<div class="fixed left-0 right-0 bottom-3 flex justify-center" transition:persist>
-  <BlurFade client:load> 
+<div class="fixed left-0 right-0 bottom-3 flex justify-center" transition:persist transition:persist-props>
   <div
     class="resizeable-container relative flex bg-background shadow-lg border max-w-1/6 h-14 rounded-full justify-start items-center pl-5 pr-5 space-x-3 transition-transform duration-300"
   >
@@ -196,7 +195,7 @@ import { Image } from 'astro:assets';
   loadThemePreference();
 
   // Astro transitions
-  document.addEventListener("astro:page-load", () => {
+  document.addEventListener("astro:after-swap", () => {
       loadThemePreference();
   });
 </script>
