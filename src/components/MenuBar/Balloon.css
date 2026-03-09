@@ -110,7 +110,7 @@ button[aria-label][data-balloon-pos] {
     right: 5px;
 }
 [aria-label][data-balloon-pos][data-balloon-pos^="up"]:before, [aria-label][data-balloon-pos][data-balloon-pos^="up"]:after {
-    bottom: 200%;
+    bottom: 130%;
     transform-origin: top;
     transform: translate(0, var(--balloon-move));
 }

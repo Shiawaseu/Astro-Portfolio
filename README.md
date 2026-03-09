@@ -19,7 +19,6 @@ https://github.com/user-attachments/assets/271a885d-e1c9-49e5-9afc-e83d32050d1b
 | **Optimized Performance ⚙️** | Built with Astro, focusing on fast load times and minimal resource usage.                      |
 | **Project Showcase 📜**   | Dedicated sections for highlighting projects, complete with images, descriptions, and links.     |
 | **Skills Badges ⚒️**      | Display your skills and technologies with customizable badges for quick visual reference.        |                     |
-| **Spotify Integration 🎧**      | Displays the song currently playing on Spotify.        |                     |
 | **SEO Optimized 🔰** | Built with SEO best practices to improve search engine rankings.                      |
 | **Live Insights ⚡** | Using Vercel's provided tools, you can track visitor count & function speed for the portfolio.                      |
 
@@ -37,37 +36,6 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-
-## Spotify Setup (One-time)
-
-<details>
-<summary>Click here to expand Spotify Setup Steps</summary>
-
-### For every step here, insert all the information to your environment variables (check [here](/.env.example))
-
-1 - Collect your Spotify Data
-- https://developer.spotify.com/dashboard/create ![](/assets/spotify1.png) ![](/assets/spotify2.png)
-  - Select "Web API" and make sure the redirect URI is your site (I.E: `https://mysite.com/api/spotify`) **You CAN provide a localhost and finish authentication in a development environment**
-- Collect the **Client ID** & **Client Secret** ![](/assets/spotify3.png)
-
-2 - Collect your Redis data (used for storing your access tokens along with refresh tokens)
-- Create a new cache like so: ![](/assets/redis1.png)
-  - Select `cache` & the rest is up to you
-
-- Get your `host` / `port` / `password` from the dashboard: ![](/assets/redis2.png) ![](/assets/redis3.png)
-
-3 - Authenticate your Spotify account
-> At this point, you need your server running, whether it is locally or in production, make sure your redirect URI is matching in both the Spotify Dashboard & your environment variables.
-
-- Navigate to `/api/spotify`
-  - You will be prompted to log in to Spotify and then asked for permission to authorize the app you've created, accept.
-
-- Once you have been redirected back, edit your URL as follows: ![](/assets/auth1.png) ![](/assets/auth2.png)
-  - This extra step only exists to prevent unauthorized spotify linking to your portfolio
-  - Once you have done that, you should be ready to go.
-
-</details>
 
 # License
 This project is Licensed under the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
