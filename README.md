@@ -7,7 +7,7 @@ A sleek, professional and responsive open-source portfolio built with Astro with
 
 
 https://github.com/user-attachments/assets/271a885d-e1c9-49e5-9afc-e83d32050d1b
-
+> As of 9th March 2026 - I've decided to permanently remove the Spotify feature due to [recent changes](https://developer.spotify.com/documentation/web-api/references/changes/february-2026)
 
 
 # Features
